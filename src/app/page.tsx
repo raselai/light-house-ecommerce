@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { getStaticProducts } from '@/lib/staticData';
+import { fetchProducts } from '@/lib/productService';
 import { getProductImagePath } from '@/lib/utils';
 
 export default function Home() {
@@ -20,9 +20,9 @@ export default function Home() {
 
   // Load products on component mount
   useEffect(() => {
-    const loadProducts = () => {
+    const loadProducts = async () => {
       try {
-        const fetchedProducts = getStaticProducts();
+        const fetchedProducts = await fetchProducts();
         setProducts(fetchedProducts);
       } catch (error) {
         console.error('Error loading products:', error);

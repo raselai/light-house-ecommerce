@@ -1,14 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
+  output: 'standalone',
   images: {
+    domains: [],
     unoptimized: true
   },
-  // Disable server-side features for static export
-  experimental: {
-    appDir: true
-  }
+  serverExternalPackages: []
 }
 
 module.exports = nextConfig 
