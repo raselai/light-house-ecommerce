@@ -19,52 +19,9 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
     const files = event.target.files;
     if (!files || files.length === 0) return;
 
-    setIsUploading(true);
-    setUploadProgress(0);
-
-    try {
-      const formData = new FormData();
-      
-      // Add all files to FormData
-      for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i]);
-      }
-      
-      // Add category and subcategory
-      formData.append('category', category);
-      formData.append('subcategory', subcategory);
-
-      // Upload to server
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
-      const result = await response.json();
-      
-      if (result.success) {
-        // Update the images list
-        const allImages = [...uploadedImages, ...result.uploadedPaths];
-        setUploadedImages(allImages);
-        onImagesUploaded(allImages);
-      } else {
-        throw new Error(result.error || 'Upload failed');
-      }
-
-    } catch (error) {
-      console.error('Upload failed:', error);
-      alert('Failed to upload images. Please try again.');
-    } finally {
-      setIsUploading(false);
-      setUploadProgress(0);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
+    // Convert FileList to Array and process
+    const filesArray = Array.from(files);
+    processFiles(filesArray);
   };
 
   const removeImage = (index: number) => {
@@ -81,11 +38,66 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
     e.preventDefault();
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
-      // Create a fake event to reuse the file select logic
-      const fakeEvent = {
-        target: { files: files }
-      } as React.ChangeEvent<HTMLInputElement>;
-      handleFileSelect(fakeEvent);
+      // Process files directly instead of creating a fake event
+      processFiles(files);
+    }
+  };
+
+  const processFiles = async (files: File[]) => {
+    setIsUploading(true);
+    setUploadProgress(0);
+    
+    const newImages: string[] = [];
+    
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      
+      // Validate file
+      if (!file.type.startsWith('image/')) {
+        alert('Please select only image files.');
+        continue;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size must be less than 5MB.');
+        continue;
+      }
+      
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('category', category);
+        formData.append('subcategory', subcategory);
+        
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          newImages.push(result.imageUrl);
+          setUploadProgress(((i + 1) / files.length) * 100);
+        } else {
+          alert(`Failed to upload ${file.name}`);
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        alert(`Failed to upload ${file.name}`);
+      }
+    }
+    
+    setIsUploading(false);
+    setUploadProgress(0);
+    
+    if (newImages.length > 0) {
+      const updatedImages = [...uploadedImages, ...newImages];
+      setUploadedImages(updatedImages);
+      onImagesUploaded(updatedImages);
+    }
+    
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
