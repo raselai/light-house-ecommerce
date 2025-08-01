@@ -7,6 +7,7 @@ import EditProductForm from '@/components/EditProductForm';
 import DashboardOverview from '@/components/DashboardOverview';
 import { fetchProducts, addProduct, updateProduct, deleteProduct } from '@/lib/productService';
 import { useAuth } from '@/hooks/useAuth';
+import { Product } from '@/types/product';
 
 export default function AdminPanel() {
   const { isAuthenticated, loading: authLoading, logout } = useAuth();
