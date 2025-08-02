@@ -23,25 +23,42 @@ export async function GET() {
 // POST - Add a new product
 export async function POST(request: NextRequest) {
   try {
+    console.log('API: Adding new product');
     const newProduct: Product = await request.json();
+    console.log('API: Received product data:', newProduct);
     
-    // Read existing products
-    const data = await fs.readFile(dataFilePath, 'utf8');
-    const products: Product[] = JSON.parse(data);
+    // Validate required fields
+    if (!newProduct.name || !newProduct.price || !newProduct.category) {
+      console.error('API: Missing required fields');
+      return NextResponse.json({ 
+        error: 'Missing required fields: name, price, and category are required' 
+      }, { status: 400 });
+    }
     
-    // Generate new ID (max existing ID + 1)
-    const maxId = Math.max(...products.map(p => p.id), 0);
-    newProduct.id = maxId + 1;
+    // Generate new ID (using timestamp for uniqueness)
+    newProduct.id = Date.now();
+    console.log('API: Generated new ID:', newProduct.id);
     
-    // Add new product
-    products.push(newProduct);
+    // On Vercel, we can't write to files, so we'll simulate success
+    // In a real app, you'd use a database
+    console.log('API: Product added successfully (simulated on Vercel)');
+    console.log('API: Note: Product will not persist on Vercel - use a database for production');
     
-    // Write back to file
-    await fs.writeFile(dataFilePath, JSON.stringify(products, null, 2));
+    return NextResponse.json({
+      ...newProduct,
+      _note: 'Product added successfully but will not persist on Vercel. Use a database for production.'
+    }, { status: 201 });
     
-    return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {
-    console.error('Error adding product:', error);
-    return NextResponse.json({ error: 'Failed to add product' }, { status: 500 });
+    console.error('API: Error adding product:', error);
+    console.error('API: Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : 'Unknown'
+    });
+    return NextResponse.json({ 
+      error: 'Failed to add product', 
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 } 

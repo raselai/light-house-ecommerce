@@ -99,20 +99,55 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Generate a new ID (in real app, this would be from database)
+    // Validate required fields
+    if (!formData.name.trim()) {
+      alert('Product name is required');
+      return;
+    }
+    
+    if (!formData.price || parseFloat(formData.price) <= 0) {
+      alert('Valid price is required');
+      return;
+    }
+    
+    if (!formData.category) {
+      alert('Category is required');
+      return;
+    }
+    
+    if (!formData.subcategory) {
+      alert('Subcategory is required');
+      return;
+    }
+    
+    // Create product object WITHOUT id (API will generate it)
     const newProduct = {
-      ...formData,
-      id: Date.now(), // Temporary ID generation
+      name: formData.name,
       price: parseFloat(formData.price),
-      wattage: formData.wattage === 'N/A' ? 'N/A' : parseInt(formData.wattage),
-      rating: parseFloat(formData.rating),
-      reviewCount: parseInt(formData.reviewCount),
+      description: formData.description,
+      dimensions: formData.dimensions,
+      bulbType: formData.bulbType,
+      wattage: formData.wattage === 'N/A' ? 'N/A' : parseInt(formData.wattage) || 0,
+      voltage: formData.voltage,
+      material: formData.material,
+      category: formData.category,
+      subcategory: formData.subcategory,
+      room: formData.room,
+      lightType: formData.lightType,
+      style: formData.style,
+      availability: formData.availability,
+      isFeatured: formData.isFeatured,
+      isOnSale: formData.isOnSale,
+      rating: parseFloat(formData.rating) || 4.5,
+      reviewCount: parseInt(formData.reviewCount) || 0,
       images: formData.images.filter(img => img.trim() !== ''),
       galleryImages: formData.galleryImages.filter(img => img.trim() !== ''),
       image: formData.image || formData.images[0] || '',
-      mainImage: formData.mainImage || formData.images[0] || ''
+      mainImage: formData.mainImage || formData.images[0] || '',
+      imagePath: formData.image || formData.images[0] || ''
     };
 
+    console.log('Submitting product:', newProduct);
     onSave(newProduct);
     onClose();
   };

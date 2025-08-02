@@ -30,6 +30,8 @@ export async function fetchProducts(): Promise<Product[]> {
 // Add a new product
 export async function addProduct(product: Omit<Product, 'id'>): Promise<Product | null> {
   try {
+    console.log('productService: Adding product:', product);
+    
     const response = await fetch('/api/products', {
       method: 'POST',
       headers: {
@@ -38,14 +40,21 @@ export async function addProduct(product: Omit<Product, 'id'>): Promise<Product 
       body: JSON.stringify(product),
     });
     
+    console.log('productService: Response status:', response.status);
+    console.log('productService: Response ok:', response.ok);
+    
     if (!response.ok) {
-      throw new Error('Failed to add product');
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('productService: Error response:', errorData);
+      throw new Error(`Failed to add product: ${errorData.error || 'Unknown error'}`);
     }
     
-    return await response.json();
+    const result = await response.json();
+    console.log('productService: Success response:', result);
+    return result;
   } catch (error) {
-    console.error('Error adding product:', error);
-    return null;
+    console.error('productService: Error adding product:', error);
+    throw error; // Re-throw to let the calling code handle it
   }
 }
 

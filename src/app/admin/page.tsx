@@ -65,17 +65,19 @@ export default function AdminPanel() {
 
   const handleAddProduct = async (newProduct: Omit<Product, 'id'>) => {
     try {
+      console.log('Admin: Adding product:', newProduct);
       const addedProduct = await addProduct(newProduct);
       if (addedProduct) {
         setAdminProducts(prev => [...prev, addedProduct]);
         setShowAddForm(false);
-        alert('Product added successfully!');
+        alert('Product added successfully! Note: On Vercel, products are temporary and will not persist.');
       } else {
         alert('Failed to add product. Please try again.');
       }
     } catch (error) {
-      console.error('Error adding product:', error);
-      alert('Failed to add product. Please try again.');
+      console.error('Admin: Error adding product:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to add product. Please try again.';
+      alert(errorMessage);
     }
   };
 
