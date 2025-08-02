@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 
 export async function POST(request: NextRequest) {
@@ -44,39 +44,48 @@ export async function POST(request: NextRequest) {
       const extension = file.name.split('.').pop();
       const fileName = `${timestamp}-${randomId}.${extension}`;
 
-      // Create directory path
-      const categoryPath = category.toLowerCase().replace(' ', '-');
-      const subcategoryPath = subcategory.toLowerCase().replace(' ', '-');
-      const directoryPath = path.join(process.cwd(), 'public', 'images', 'products', categoryPath, subcategoryPath);
+      // Convert file to base64
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const base64String = buffer.toString('base64');
+      const dataUrl = `data:${file.type};base64,${base64String}`;
 
-      console.log('Directory path:', directoryPath);
-
-      // Create directory if it doesn't exist
-      try {
-        await mkdir(directoryPath, { recursive: true });
-        console.log('Directory created successfully');
-      } catch (mkdirError) {
-        console.error('Failed to create directory:', mkdirError);
-        throw mkdirError;
-      }
-
-      // Save file
-      const filePath = path.join(directoryPath, fileName);
-      console.log('File path:', filePath);
+      // Store base64 data in a JSON file (temporary solution)
+      const dataFilePath = path.join(process.cwd(), 'src/app/data/image-storage.json');
       
       try {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        await writeFile(filePath, buffer);
-        console.log('File written successfully');
-      } catch (writeError) {
-        console.error('Failed to write file:', writeError);
-        throw writeError;
-      }
+        // Read existing data
+        let imageData = {};
+        try {
+          const existingData = await readFile(dataFilePath, 'utf8');
+          imageData = JSON.parse(existingData);
+        } catch (readError) {
+          // File doesn't exist, start with empty object
+          imageData = {};
+        }
 
-      // Return the public URL path
-      const publicPath = `/images/products/${categoryPath}/${subcategoryPath}/${fileName}`;
-      uploadedPaths.push(publicPath);
+        // Add new image data
+        const imageKey = `image_${timestamp}_${randomId}`;
+        imageData[imageKey] = {
+          dataUrl,
+          fileName,
+          category,
+          subcategory,
+          uploadedAt: new Date().toISOString()
+        };
+
+        // Write back to file
+        await writeFile(dataFilePath, JSON.stringify(imageData, null, 2));
+        console.log('Image data stored successfully');
+
+        // Return a virtual path (we'll handle this in the frontend)
+        const virtualPath = `/api/images/${imageKey}`;
+        uploadedPaths.push(virtualPath);
+
+      } catch (storageError) {
+        console.error('Failed to store image data:', storageError);
+        throw storageError;
+      }
     }
 
     return NextResponse.json({ 
