@@ -19,6 +19,17 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const imagePath = getProductImagePath(product, product.category);
 
+  // Add error handling for missing product data
+  if (!product || !product.name) {
+    return (
+      <div className="product-card">
+        <div style={{ padding: '1rem', textAlign: 'center' }}>
+          <p>Product information unavailable</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="product-card">
       <Link
@@ -42,6 +53,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             fill
             style={{ objectFit: 'cover' }}
             priority={false}
+            onError={(e) => {
+              console.error('Image failed to load:', imagePath);
+              // You could set a fallback image here
+            }}
           />
         </div>
         <h3 style={{ margin: '0 0 0.5rem 0' }}>{product.name}</h3>
