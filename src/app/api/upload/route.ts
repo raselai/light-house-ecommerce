@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFile, writeFile } from 'fs/promises';
-import path from 'path';
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,54 +36,15 @@ export async function POST(request: NextRequest) {
         continue; // Skip large files
       }
 
-      // Generate unique filename
-      const timestamp = Date.now();
-      const randomId = Math.random().toString(36).substring(2, 8);
-      const extension = file.name.split('.').pop();
-      const fileName = `${timestamp}-${randomId}.${extension}`;
-
-      // Convert file to base64
+      // Convert file to base64 data URL
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
       const base64String = buffer.toString('base64');
       const dataUrl = `data:${file.type};base64,${base64String}`;
 
-      // Store base64 data in a JSON file (temporary solution)
-      const dataFilePath = path.join(process.cwd(), 'src/app/data/image-storage.json');
-      
-      try {
-        // Read existing data
-        let imageData = {};
-        try {
-          const existingData = await readFile(dataFilePath, 'utf8');
-          imageData = JSON.parse(existingData);
-        } catch (readError) {
-          // File doesn't exist, start with empty object
-          imageData = {};
-        }
-
-        // Add new image data
-        const imageKey = `image_${timestamp}_${randomId}`;
-        imageData[imageKey] = {
-          dataUrl,
-          fileName,
-          category,
-          subcategory,
-          uploadedAt: new Date().toISOString()
-        };
-
-        // Write back to file
-        await writeFile(dataFilePath, JSON.stringify(imageData, null, 2));
-        console.log('Image data stored successfully');
-
-        // Return a virtual path (we'll handle this in the frontend)
-        const virtualPath = `/api/images/${imageKey}`;
-        uploadedPaths.push(virtualPath);
-
-      } catch (storageError) {
-        console.error('Failed to store image data:', storageError);
-        throw storageError;
-      }
+      // Return the data URL directly (no file writing)
+      uploadedPaths.push(dataUrl);
+      console.log('Image converted to base64 successfully');
     }
 
     return NextResponse.json({ 

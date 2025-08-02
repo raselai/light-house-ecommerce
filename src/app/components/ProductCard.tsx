@@ -47,17 +47,31 @@ export default function ProductCard({ product }: ProductCardProps) {
           marginBottom: '1rem',
           overflow: 'hidden'
         }}>
-          <Image
-            src={imagePath}
-            alt={product.name}
-            fill
-            style={{ objectFit: 'cover' }}
-            priority={false}
-            onError={(e) => {
-              console.error('Image failed to load:', imagePath);
-              // You could set a fallback image here
-            }}
-          />
+          {imagePath.startsWith('data:') ? (
+            // For base64 data URLs, use regular img tag
+            <img
+              src={imagePath}
+              alt={product.name}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover' 
+              }}
+            />
+          ) : (
+            // For regular URLs, use Next.js Image component
+            <Image
+              src={imagePath}
+              alt={product.name}
+              fill
+              style={{ objectFit: 'cover' }}
+              priority={false}
+              onError={(e) => {
+                console.error('Image failed to load:', imagePath);
+                // You could set a fallback image here
+              }}
+            />
+          )}
         </div>
         <h3 style={{ margin: '0 0 0.5rem 0' }}>{product.name}</h3>
         <p style={{ color: '#6b7280', margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>

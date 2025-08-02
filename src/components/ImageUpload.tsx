@@ -77,6 +77,7 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
         if (response.ok) {
           const result = await response.json();
           if (result.uploadedPaths && result.uploadedPaths.length > 0) {
+            // The uploadedPaths now contain base64 data URLs
             newImages.push(result.uploadedPaths[0]); // Take the first uploaded path
           }
           setUploadProgress(((i + 1) / files.length) * 100);

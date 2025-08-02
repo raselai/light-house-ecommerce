@@ -83,13 +83,27 @@ export default function ImageGallery({ product, className = '' }: ImageGalleryPr
           }}
           onClick={toggleZoom}
         >
-          <Image
-            src={currentImage}
-            alt={`${product.name} - Image ${currentImageIndex + 1}`}
-            fill
-            style={{ objectFit: 'cover' }}
-            priority={currentImageIndex === 0}
-          />
+          {currentImage.startsWith('data:') ? (
+            // For base64 data URLs, use regular img tag
+            <img
+              src={currentImage}
+              alt={`${product.name} - Image ${currentImageIndex + 1}`}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover' 
+              }}
+            />
+          ) : (
+            // For regular URLs, use Next.js Image component
+            <Image
+              src={currentImage}
+              alt={`${product.name} - Image ${currentImageIndex + 1}`}
+              fill
+              style={{ objectFit: 'cover' }}
+              priority={currentImageIndex === 0}
+            />
+          )}
           
           {/* Navigation Arrows */}
           {images.length > 1 && (
@@ -211,12 +225,24 @@ export default function ImageGallery({ product, className = '' }: ImageGalleryPr
                 padding: 0
               }}
             >
-              <Image
-                src={image}
-                alt={`${product.name} thumbnail ${index + 1}`}
-                fill
-                style={{ objectFit: 'cover' }}
-              />
+              {image.startsWith('data:') ? (
+                <img
+                  src={image}
+                  alt={`${product.name} thumbnail ${index + 1}`}
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover' 
+                  }}
+                />
+              ) : (
+                <Image
+                  src={image}
+                  alt={`${product.name} thumbnail ${index + 1}`}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              )}
             </button>
           ))}
         </div>
@@ -245,17 +271,29 @@ export default function ImageGallery({ product, className = '' }: ImageGalleryPr
             maxWidth: '90vw',
             maxHeight: '90vh'
           }}>
-            <Image
-              src={currentImage}
-              alt={`${product.name} - Zoomed view`}
-              width={800}
-              height={600}
-              style={{ 
-                objectFit: 'contain',
-                maxWidth: '100%',
-                maxHeight: '100%'
-              }}
-            />
+            {currentImage.startsWith('data:') ? (
+              <img
+                src={currentImage}
+                alt={`${product.name} - Zoomed view`}
+                style={{ 
+                  objectFit: 'contain',
+                  maxWidth: '100%',
+                  maxHeight: '100%'
+                }}
+              />
+            ) : (
+              <Image
+                src={currentImage}
+                alt={`${product.name} - Zoomed view`}
+                width={800}
+                height={600}
+                style={{ 
+                  objectFit: 'contain',
+                  maxWidth: '100%',
+                  maxHeight: '100%'
+                }}
+              />
+            )}
             
             {/* Close button */}
             <button
