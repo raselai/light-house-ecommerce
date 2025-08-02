@@ -58,7 +58,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="navbar-logo">
           <Image
-            src="/images/logo/Logo.png"
+            src="/images/Logo/Logo.png"
             alt="SK Lights"
             width={200}
             height={80}
