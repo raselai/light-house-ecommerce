@@ -222,6 +222,12 @@ export default function CategoryContent({ categorySlug }: CategoryContentProps) 
   
   // Map navbar categories to product categories/subcategories
   const categoryMapping: { [key: string]: { category?: string; subcategory?: string } } = {
+    // Main categories
+    'indoor-lights': { category: 'Indoor Lights' },
+    'outdoor-lights': { category: 'Outdoor Lights' },
+    'others': { category: 'Others' },
+    
+    // Subcategories
     'hanging-lights': { subcategory: 'Hanging Lights' },
     'spotlight': { subcategory: 'Spotlight' },
     'pendant-lights': { subcategory: 'Pendant Lights' },
@@ -247,7 +253,7 @@ export default function CategoryContent({ categorySlug }: CategoryContentProps) 
   
   // Filter products by category or subcategory
   const categoryProducts = products.filter((product: any) => {
-    const productCategory = product.category.toLowerCase().replace(/ /g, '-');
+    const productCategory = product.category?.toLowerCase().replace(/ /g, '-') || '';
     const productSubcategory = product.subcategory?.toLowerCase().replace(/ /g, '-') || '';
     const mapping = categoryMapping[categorySlug];
     
@@ -268,7 +274,7 @@ export default function CategoryContent({ categorySlug }: CategoryContentProps) 
     
     // Check if the mapping exists and matches
     if (mapping) {
-      if (mapping.category && product.category.toLowerCase() === mapping.category.toLowerCase()) {
+      if (mapping.category && product.category?.toLowerCase() === mapping.category.toLowerCase()) {
         console.log('Match found by category mapping');
         return true;
       }
