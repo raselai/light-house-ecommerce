@@ -65,7 +65,7 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
       
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('files', file);
         formData.append('category', category);
         formData.append('subcategory', subcategory);
         
@@ -76,10 +76,13 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
         
         if (response.ok) {
           const result = await response.json();
-          newImages.push(result.imageUrl);
+          if (result.uploadedPaths && result.uploadedPaths.length > 0) {
+            newImages.push(result.uploadedPaths[0]); // Take the first uploaded path
+          }
           setUploadProgress(((i + 1) / files.length) * 100);
         } else {
-          alert(`Failed to upload ${file.name}`);
+          const errorData = await response.json();
+          alert(`Failed to upload ${file.name}: ${errorData.error || 'Unknown error'}`);
         }
       } catch (error) {
         console.error('Upload error:', error);
