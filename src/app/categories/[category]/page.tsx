@@ -1,8 +1,7 @@
-import { use } from 'react';
 import CategoryContent from './CategoryContent';
 
-export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
-  const { category } = use(params);
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
   const categorySlug = decodeURIComponent(category);
   
   return <CategoryContent categorySlug={categorySlug} />;
