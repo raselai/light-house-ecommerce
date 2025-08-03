@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllProducts, addProduct } from '@/lib/firestore';
+import { getAllProducts, addProduct, Product as FirestoreProduct } from '@/lib/firestore';
 import { Product } from '@/types/product';
 
 // GET - Fetch all products
@@ -31,16 +31,26 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    // Add default values for required Firestore fields
-    const productWithDefaults = {
-      ...newProduct,
+    // Convert to Firestore Product format
+    const firestoreProduct: Omit<FirestoreProduct, 'id'> = {
+      name: newProduct.name,
+      price: newProduct.price,
+      description: newProduct.description,
+      category: newProduct.category,
+      subcategory: newProduct.subcategory,
+      image: newProduct.image || newProduct.images?.[0] || '',
+      images: newProduct.images || [],
+      wattage: newProduct.wattage,
+      color: newProduct.color,
+      material: newProduct.material,
+      dimensions: newProduct.dimensions,
       inStock: newProduct.inStock ?? (newProduct.availability === 'In Stock'),
       featured: newProduct.featured ?? newProduct.isFeatured,
       seasonal: newProduct.seasonal ?? newProduct.isOnSale
     };
     
     // Add product to Firestore
-    const addedProduct = await addProduct(productWithDefaults);
+    const addedProduct = await addProduct(firestoreProduct);
     console.log('API: Product added successfully to Firestore:', addedProduct);
     
     return NextResponse.json(addedProduct, { status: 201 });
