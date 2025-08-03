@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
       image: newProduct.image || newProduct.images?.[0] || '',
       images: newProduct.images || [],
       wattage: newProduct.wattage,
-      color: newProduct.color,
       material: newProduct.material,
       dimensions: newProduct.dimensions,
       inStock: newProduct.inStock ?? (newProduct.availability === 'In Stock'),
