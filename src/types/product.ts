@@ -19,8 +19,13 @@ export interface Product {
   lightType: string;
   style: string;
   availability: 'In Stock' | 'Out of Stock' | 'Limited Stock';
+  inStock: boolean; // Required for Firestore
   isFeatured: boolean;
   isOnSale: boolean;
+  featured?: boolean; // For Firestore compatibility
+  seasonal?: boolean; // For Firestore compatibility
   rating: number;
   reviewCount: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

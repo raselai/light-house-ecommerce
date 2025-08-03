@@ -31,8 +31,16 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
+    // Add default values for required Firestore fields
+    const productWithDefaults = {
+      ...newProduct,
+      inStock: newProduct.inStock ?? (newProduct.availability === 'In Stock'),
+      featured: newProduct.featured ?? newProduct.isFeatured,
+      seasonal: newProduct.seasonal ?? newProduct.isOnSale
+    };
+    
     // Add product to Firestore
-    const addedProduct = await addProduct(newProduct);
+    const addedProduct = await addProduct(productWithDefaults);
     console.log('API: Product added successfully to Firestore:', addedProduct);
     
     return NextResponse.json(addedProduct, { status: 201 });
