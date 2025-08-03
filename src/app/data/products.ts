@@ -31,7 +31,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 24
+    reviewCount: 24,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "2",
@@ -62,7 +65,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: true,
     rating: 4.6,
-    reviewCount: 18
+    reviewCount: 18,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   
   // Indoor Lights - Ceiling Lights
@@ -95,7 +101,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 32
+    reviewCount: 32,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "4",
@@ -120,7 +129,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 15
+    reviewCount: 15,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Wall Lamps
@@ -147,7 +159,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Pendant Lights
@@ -174,7 +189,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.5,
-    reviewCount: 21
+    reviewCount: 21,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Garden Lights
@@ -201,7 +219,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.2,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Flood Lights
@@ -228,7 +249,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 37
+    reviewCount: 37,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Wall Fixtures
@@ -255,7 +279,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 19
+    reviewCount: 19,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Street Lamps
@@ -282,7 +309,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 12
+    reviewCount: 12,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Spotlight Collection
@@ -309,7 +339,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "12",
@@ -334,7 +367,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.7,
-    reviewCount: 35
+    reviewCount: 35,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "13",
@@ -359,7 +395,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 42
+    reviewCount: 42,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "14",
@@ -384,7 +423,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 19
+    reviewCount: 19,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "15",
@@ -409,7 +451,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "16",
@@ -434,7 +479,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 8
+    reviewCount: 8,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Pendant Lights Collection
@@ -461,7 +509,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 23
+    reviewCount: 23,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "18",
@@ -486,7 +537,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "19",
@@ -511,7 +565,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 18
+    reviewCount: 18,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "20",
@@ -536,7 +593,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 12
+    reviewCount: 12,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "21",
@@ -561,7 +621,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 27
+    reviewCount: 27,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "22",
@@ -586,7 +649,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 35
+    reviewCount: 35,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Magnetic Lights Collection
@@ -613,7 +679,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 29
+    reviewCount: 29,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "24",
@@ -638,7 +707,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 42
+    reviewCount: 42,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "25",
@@ -663,7 +735,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 38
+    reviewCount: 38,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "26",
@@ -688,7 +763,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 16
+    reviewCount: 16,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "27",
@@ -713,7 +791,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 24
+    reviewCount: 24,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "28",
@@ -738,7 +819,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.2,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - LED Tube Collection
@@ -765,7 +849,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "30",
@@ -790,7 +877,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.6,
-    reviewCount: 43
+    reviewCount: 43,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "31",
@@ -815,7 +905,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "32",
@@ -840,7 +933,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 35
+    reviewCount: 35,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "33",
@@ -865,7 +961,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 19
+    reviewCount: 19,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "34",
@@ -890,7 +989,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Office Lights Collection
@@ -917,7 +1019,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 38
+    reviewCount: 38,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "36",
@@ -942,7 +1047,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 25
+    reviewCount: 25,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "37",
@@ -967,7 +1075,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 47
+    reviewCount: 47,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "38",
@@ -992,7 +1103,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 12
+    reviewCount: 12,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "39",
@@ -1017,7 +1131,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "40",
@@ -1042,7 +1159,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Warehouse Lights Collection
@@ -1069,7 +1189,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 42
+    reviewCount: 42,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "42",
@@ -1094,7 +1217,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.5,
-    reviewCount: 38
+    reviewCount: 38,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "43",
@@ -1119,7 +1245,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 25
+    reviewCount: 25,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "44",
@@ -1144,7 +1273,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "45",
@@ -1169,7 +1301,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 18
+    reviewCount: 18,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "46",
@@ -1194,7 +1329,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 22
+    reviewCount: 22,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - LED Strip Collection
@@ -1221,7 +1359,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 89
+    reviewCount: 89,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "48",
@@ -1246,7 +1387,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "49",
@@ -1271,7 +1415,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 43
+    reviewCount: 43,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "50",
@@ -1296,7 +1443,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "51",
@@ -1321,7 +1471,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "52",
@@ -1346,7 +1499,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 35
+    reviewCount: 35,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Aluminum Profile Collection
@@ -1373,7 +1529,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 42
+    reviewCount: 42,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "54",
@@ -1398,7 +1557,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.3,
-    reviewCount: 38
+    reviewCount: 38,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "55",
@@ -1423,7 +1585,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 29
+    reviewCount: 29,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "56",
@@ -1448,7 +1613,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 51
+    reviewCount: 51,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "57",
@@ -1473,7 +1641,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 23
+    reviewCount: 23,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "58",
@@ -1498,7 +1669,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 34
+    reviewCount: 34,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Mirror Light Collection
@@ -1525,7 +1699,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 78
+    reviewCount: 78,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "60",
@@ -1550,7 +1727,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 56
+    reviewCount: 56,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "61",
@@ -1575,7 +1755,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 42
+    reviewCount: 42,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "62",
@@ -1600,7 +1783,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "63",
@@ -1625,7 +1811,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 38
+    reviewCount: 38,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "64",
@@ -1650,7 +1839,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.9,
-    reviewCount: 25
+    reviewCount: 25,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - LED Track Light Collection
@@ -1677,7 +1869,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "66",
@@ -1702,7 +1897,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 89
+    reviewCount: 89,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "67",
@@ -1727,7 +1925,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "68",
@@ -1752,7 +1953,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "69",
@@ -1777,7 +1981,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "70",
@@ -1802,7 +2009,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 34
+    reviewCount: 34,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Indoor Lights - Wall Light Collection
@@ -1829,7 +2039,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "72",
@@ -1854,7 +2067,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.3,
-    reviewCount: 89
+    reviewCount: 89,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "73",
@@ -1879,7 +2095,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "74",
@@ -1904,7 +2123,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 31
+    reviewCount: 31,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "75",
@@ -1929,7 +2151,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "76",
@@ -1954,7 +2179,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.9,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Stand Light Collection
@@ -1981,7 +2209,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 78
+    reviewCount: 78,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "78",
@@ -2006,7 +2237,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.3,
-    reviewCount: 92
+    reviewCount: 92,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "79",
@@ -2031,7 +2265,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "80",
@@ -2056,7 +2293,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 56
+    reviewCount: 56,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "81",
@@ -2081,7 +2321,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 34
+    reviewCount: 34,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "82",
@@ -2106,7 +2349,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.9,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Additional Garden Light Collection
@@ -2133,7 +2379,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "84",
@@ -2158,7 +2407,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.4,
-    reviewCount: 89
+    reviewCount: 89,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "85",
@@ -2183,7 +2435,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "86",
@@ -2208,7 +2463,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.5,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "87",
@@ -2233,7 +2491,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 78
+    reviewCount: 78,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "88",
@@ -2258,7 +2519,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 34
+    reviewCount: 34,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Additional Flood Light Collection
@@ -2285,7 +2549,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "90",
@@ -2310,7 +2577,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.5,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "91",
@@ -2335,7 +2605,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "92",
@@ -2360,7 +2633,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 28
+    reviewCount: 28,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "93",
@@ -2385,7 +2661,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.9,
-    reviewCount: 23
+    reviewCount: 23,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "94",
@@ -2410,7 +2689,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 78
+    reviewCount: 78,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
 
   // Outdoor Lights - Solar Light Collection
@@ -2437,7 +2719,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.6,
-    reviewCount: 45
+    reviewCount: 45,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "96",
@@ -2462,7 +2747,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: true,
     rating: 4.5,
-    reviewCount: 67
+    reviewCount: 67,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "97",
@@ -2487,7 +2775,10 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.4,
-    reviewCount: 89
+    reviewCount: 89,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "98",
@@ -2512,7 +2803,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.7,
-    reviewCount: 52
+    reviewCount: 52,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "99",
@@ -2537,7 +2831,10 @@ export const products: Product[] = [
     isFeatured: false,
     isOnSale: false,
     rating: 4.3,
-    reviewCount: 78
+    reviewCount: 78,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   },
   {
     id: "100",
@@ -2562,6 +2859,9 @@ export const products: Product[] = [
     isFeatured: true,
     isOnSale: false,
     rating: 4.8,
-    reviewCount: 34
+    reviewCount: 34,
+    inStock: true,
+    featured: false,
+    seasonal: false,
   }
 ];
