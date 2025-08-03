@@ -83,7 +83,7 @@ export default function AdminPanel() {
 
   const handleEditProduct = async (updatedProduct: Product) => {
     try {
-      const editedProduct = await updateProduct(updatedProduct.id, updatedProduct);
+      const editedProduct = await updateProduct(updatedProduct.id.toString(), updatedProduct);
       if (editedProduct) {
         setAdminProducts(prev => 
           prev.map(product => 
