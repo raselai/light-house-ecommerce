@@ -3,7 +3,7 @@ import { Product } from '@/types/product';
 export const products: Product[] = [
   // Indoor Lights - Chandeliers
   {
-    id: 1,
+    id: "1",
     name: 'Crystal Palace Chandelier',
     price: 2850.0,
     images: ['/images/products/crystal-palace-chandelier.jpg'],
@@ -34,7 +34,7 @@ export const products: Product[] = [
     reviewCount: 24
   },
   {
-    id: 2,
+    id: "2",
     name: 'Modern Gold Chandelier',
     price: 1950.0,
     images: ['/images/products/modern-gold-chandelier.jpg'],
@@ -67,7 +67,7 @@ export const products: Product[] = [
   
   // Indoor Lights - Ceiling Lights
   {
-    id: 3,
+    id: "3",
     name: 'LED Flush Mount Ceiling Light',
     price: 385.0,
     images: ['/images/products/led-flush-mount.jpg'],
@@ -98,7 +98,7 @@ export const products: Product[] = [
     reviewCount: 32
   },
   {
-    id: 4,
+    id: "4",
     name: 'Smart Ceiling Light with Fan',
     price: 1250.0,
     images: ['/images/products/smart-ceiling-fan-light.jpg'],
@@ -125,7 +125,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Wall Lamps
   {
-    id: 5,
+    id: "5",
     name: 'Luxury Wall Sconce',
     price: 485.0,
     images: ['/images/products/luxury-wall-sconce.jpg'],
@@ -152,7 +152,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Pendant Lights
   {
-    id: 6,
+    id: "6",
     name: 'Industrial Pendant Light',
     price: 325.0,
     images: ['/images/products/industrial-pendant.jpg'],
@@ -179,7 +179,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Garden Lights
   {
-    id: 7,
+    id: "7",
     name: 'Solar Garden Path Lights',
     price: 280.0,
     images: ['/images/products/solar-garden-lights.jpg'],
@@ -206,7 +206,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Flood Lights
   {
-    id: 8,
+    id: "8",
     name: 'LED Security Flood Light',
     price: 425.0,
     images: ['/images/products/led-flood-light.jpg'],
@@ -233,7 +233,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Wall Fixtures
   {
-    id: 9,
+    id: "9",
     name: 'Outdoor Wall Lantern',
     price: 315.0,
     images: ['/images/products/outdoor-wall-lantern.jpg'],
@@ -260,7 +260,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Street Lamps
   {
-    id: 10,
+    id: "10",
     name: 'LED Street Lamp Post',
     price: 1850.0,
     images: ['/images/products/led-street-lamp.jpg'],
@@ -287,7 +287,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Spotlight Collection
   {
-    id: 11,
+    id: "11",
     name: 'Adjustable LED Spotlight',
     price: 285.0,
     images: ['/images/products/adjustable-led-spotlight.jpg'],
@@ -312,7 +312,7 @@ export const products: Product[] = [
     reviewCount: 28
   },
   {
-    id: 12,
+    id: "12",
     name: 'Track Spotlight System',
     price: 450.0,
     images: ['/images/products/track-spotlight-system.jpg'],
@@ -337,7 +337,7 @@ export const products: Product[] = [
     reviewCount: 35
   },
   {
-    id: 13,
+    id: "13",
     name: 'Recessed LED Spotlight',
     price: 165.0,
     images: ['/images/products/recessed-led-spotlight.jpg'],
@@ -362,7 +362,7 @@ export const products: Product[] = [
     reviewCount: 42
   },
   {
-    id: 14,
+    id: "14",
     name: 'Pendant Spotlight Cluster',
     price: 385.0,
     images: ['/images/products/pendant-spotlight-cluster.jpg'],
@@ -387,7 +387,7 @@ export const products: Product[] = [
     reviewCount: 19
   },
   {
-    id: 15,
+    id: "15",
     name: 'Wall-Mounted Spotlight',
     price: 225.0,
     images: ['/images/products/wall-mounted-spotlight.jpg'],
@@ -412,7 +412,7 @@ export const products: Product[] = [
     reviewCount: 31
   },
   {
-    id: 16,
+    id: "16",
     name: 'Commercial LED Spotlight',
     price: 650.0,
     images: ['/images/products/commercial-led-spotlight.jpg'],
@@ -439,7 +439,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Pendant Lights Collection
   {
-    id: 17,
+    id: "17",
     name: 'Crystal Glass Pendant Light',
     price: 485.0,
     images: ['/images/products/crystal-glass-pendant.jpg'],
@@ -464,7 +464,7 @@ export const products: Product[] = [
     reviewCount: 23
   },
   {
-    id: 18,
+    id: "18",
     name: 'Modern Minimalist Pendant',
     price: 285.0,
     images: ['/images/products/modern-minimalist-pendant.jpg'],
@@ -489,7 +489,7 @@ export const products: Product[] = [
     reviewCount: 31
   },
   {
-    id: 19,
+    id: "19",
     name: 'Rustic Wood Pendant Light',
     price: 365.0,
     images: ['/images/products/rustic-wood-pendant.jpg'],
@@ -514,7 +514,7 @@ export const products: Product[] = [
     reviewCount: 18
   },
   {
-    id: 20,
+    id: "20",
     name: 'Multi-Light Pendant Cluster',
     price: 585.0,
     images: ['/images/products/multi-light-pendant-cluster.jpg'],
@@ -539,7 +539,7 @@ export const products: Product[] = [
     reviewCount: 12
   },
   {
-    id: 21,
+    id: "21",
     name: 'Vintage Edison Pendant',
     price: 225.0,
     images: ['/images/products/vintage-edison-pendant.jpg'],
@@ -564,7 +564,7 @@ export const products: Product[] = [
     reviewCount: 27
   },
   {
-    id: 22,
+    id: "22",
     name: 'Contemporary Metal Pendant',
     price: 345.0,
     images: ['/images/products/contemporary-metal-pendant.jpg'],
@@ -591,7 +591,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Magnetic Lights Collection
   {
-    id: 23,
+    id: "23",
     name: 'Magnetic Track Light System',
     price: 385.0,
     images: ['/images/products/magnetic-track-light-system.jpg'],
@@ -616,7 +616,7 @@ export const products: Product[] = [
     reviewCount: 29
   },
   {
-    id: 24,
+    id: "24",
     name: 'Magnetic Ceiling Spotlight',
     price: 185.0,
     images: ['/images/products/magnetic-ceiling-spotlight.jpg'],
@@ -641,7 +641,7 @@ export const products: Product[] = [
     reviewCount: 42
   },
   {
-    id: 25,
+    id: "25",
     name: 'Magnetic Under Cabinet Light',
     price: 125.0,
     images: ['/images/products/magnetic-under-cabinet-light.jpg'],
@@ -666,7 +666,7 @@ export const products: Product[] = [
     reviewCount: 38
   },
   {
-    id: 26,
+    id: "26",
     name: 'Magnetic Wall Sconce',
     price: 245.0,
     images: ['/images/products/magnetic-wall-sconce.jpg'],
@@ -691,7 +691,7 @@ export const products: Product[] = [
     reviewCount: 16
   },
   {
-    id: 27,
+    id: "27",
     name: 'Magnetic Pendant Light',
     price: 285.0,
     images: ['/images/products/magnetic-pendant-light.jpg'],
@@ -716,7 +716,7 @@ export const products: Product[] = [
     reviewCount: 24
   },
   {
-    id: 28,
+    id: "28",
     name: 'Magnetic Recessed Light',
     price: 165.0,
     images: ['/images/products/magnetic-recessed-light.jpg'],
@@ -743,7 +743,7 @@ export const products: Product[] = [
 
   // Indoor Lights - LED Tube Collection
   {
-    id: 29,
+    id: "29",
     name: '4ft LED Tube Light',
     price: 85.0,
     images: ['/images/products/4ft-led-tube-light.jpg'],
@@ -768,7 +768,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 30,
+    id: "30",
     name: '6ft LED Tube Light',
     price: 125.0,
     images: ['/images/products/6ft-led-tube-light.jpg'],
@@ -793,7 +793,7 @@ export const products: Product[] = [
     reviewCount: 43
   },
   {
-    id: 31,
+    id: "31",
     name: 'Dimmable LED Tube',
     price: 145.0,
     images: ['/images/products/dimmable-led-tube.jpg'],
@@ -818,7 +818,7 @@ export const products: Product[] = [
     reviewCount: 28
   },
   {
-    id: 32,
+    id: "32",
     name: 'Color Changing LED Tube',
     price: 165.0,
     images: ['/images/products/color-changing-led-tube.jpg'],
@@ -843,7 +843,7 @@ export const products: Product[] = [
     reviewCount: 35
   },
   {
-    id: 33,
+    id: "33",
     name: 'Waterproof LED Tube',
     price: 185.0,
     images: ['/images/products/waterproof-led-tube.jpg'],
@@ -868,7 +868,7 @@ export const products: Product[] = [
     reviewCount: 19
   },
   {
-    id: 34,
+    id: "34",
     name: 'Ultra Slim LED Tube',
     price: 95.0,
     images: ['/images/products/ultra-slim-led-tube.jpg'],
@@ -895,7 +895,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Office Lights Collection
   {
-    id: 35,
+    id: "35",
     name: 'Anti-Glare Office Panel Light',
     price: 285.0,
     images: ['/images/products/anti-glare-office-panel-light.jpg'],
@@ -920,7 +920,7 @@ export const products: Product[] = [
     reviewCount: 38
   },
   {
-    id: 36,
+    id: "36",
     name: 'Motion Sensor Office Light',
     price: 365.0,
     images: ['/images/products/motion-sensor-office-light.jpg'],
@@ -945,7 +945,7 @@ export const products: Product[] = [
     reviewCount: 25
   },
   {
-    id: 37,
+    id: "37",
     name: 'Desk Task Light',
     price: 185.0,
     images: ['/images/products/desk-task-light.jpg'],
@@ -970,7 +970,7 @@ export const products: Product[] = [
     reviewCount: 47
   },
   {
-    id: 38,
+    id: "38",
     name: 'Conference Room Chandelier',
     price: 1250.0,
     images: ['/images/products/conference-room-chandelier.jpg'],
@@ -995,7 +995,7 @@ export const products: Product[] = [
     reviewCount: 12
   },
   {
-    id: 39,
+    id: "39",
     name: 'Reception Area Pendant',
     price: 485.0,
     images: ['/images/products/reception-area-pendant.jpg'],
@@ -1020,7 +1020,7 @@ export const products: Product[] = [
     reviewCount: 31
   },
   {
-    id: 40,
+    id: "40",
     name: 'Open Office Grid Light',
     price: 425.0,
     images: ['/images/products/open-office-grid-light.jpg'],
@@ -1047,7 +1047,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Warehouse Lights Collection
   {
-    id: 41,
+    id: "41",
     name: 'High Bay LED Warehouse Light',
     price: 485.0,
     images: ['/images/products/high-bay-led-warehouse-light.jpg'],
@@ -1072,7 +1072,7 @@ export const products: Product[] = [
     reviewCount: 42
   },
   {
-    id: 42,
+    id: "42",
     name: 'Industrial Flood Light',
     price: 385.0,
     images: ['/images/products/industrial-flood-light.jpg'],
@@ -1097,7 +1097,7 @@ export const products: Product[] = [
     reviewCount: 38
   },
   {
-    id: 43,
+    id: "43",
     name: 'Motion Sensor Warehouse Light',
     price: 425.0,
     images: ['/images/products/motion-sensor-warehouse-light.jpg'],
@@ -1122,7 +1122,7 @@ export const products: Product[] = [
     reviewCount: 25
   },
   {
-    id: 44,
+    id: "44",
     name: 'LED Warehouse Strip Light',
     price: 285.0,
     images: ['/images/products/led-warehouse-strip-light.jpg'],
@@ -1147,7 +1147,7 @@ export const products: Product[] = [
     reviewCount: 31
   },
   {
-    id: 45,
+    id: "45",
     name: 'Emergency Warehouse Light',
     price: 365.0,
     images: ['/images/products/emergency-warehouse-light.jpg'],
@@ -1172,7 +1172,7 @@ export const products: Product[] = [
     reviewCount: 18
   },
   {
-    id: 46,
+    id: "46",
     name: 'Warehouse Ceiling Grid Light',
     price: 525.0,
     images: ['/images/products/warehouse-ceiling-grid-light.jpg'],
@@ -1199,7 +1199,7 @@ export const products: Product[] = [
 
   // Indoor Lights - LED Strip Collection
   {
-    id: 47,
+    id: "47",
     name: 'RGB LED Strip Light',
     price: 125.0,
     images: ['/images/products/rgb-led-strip-light.jpg'],
@@ -1224,7 +1224,7 @@ export const products: Product[] = [
     reviewCount: 89
   },
   {
-    id: 48,
+    id: "48",
     name: 'Under Cabinet LED Strip',
     price: 85.0,
     images: ['/images/products/under-cabinet-led-strip.jpg'],
@@ -1249,7 +1249,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 49,
+    id: "49",
     name: 'Waterproof LED Strip',
     price: 145.0,
     images: ['/images/products/waterproof-led-strip.jpg'],
@@ -1274,7 +1274,7 @@ export const products: Product[] = [
     reviewCount: 43
   },
   {
-    id: 50,
+    id: "50",
     name: 'Smart WiFi LED Strip',
     price: 185.0,
     images: ['/images/products/smart-wifi-led-strip.jpg'],
@@ -1299,7 +1299,7 @@ export const products: Product[] = [
     reviewCount: 28
   },
   {
-    id: 51,
+    id: "51",
     name: 'High Density LED Strip',
     price: 165.0,
     images: ['/images/products/high-density-led-strip.jpg'],
@@ -1324,7 +1324,7 @@ export const products: Product[] = [
     reviewCount: 52
   },
   {
-    id: 52,
+    id: "52",
     name: 'COB LED Strip Light',
     price: 205.0,
     images: ['/images/products/cob-led-strip-light.jpg'],
@@ -1351,7 +1351,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Aluminum Profile Collection
   {
-    id: 53,
+    id: "53",
     name: 'Recessed Aluminum Profile',
     price: 95.0,
     images: ['/images/products/recessed-aluminum-profile.jpg'],
@@ -1376,7 +1376,7 @@ export const products: Product[] = [
     reviewCount: 42
   },
   {
-    id: 54,
+    id: "54",
     name: 'Surface Mount Aluminum Profile',
     price: 75.0,
     images: ['/images/products/surface-mount-aluminum-profile.jpg'],
@@ -1401,7 +1401,7 @@ export const products: Product[] = [
     reviewCount: 38
   },
   {
-    id: 55,
+    id: "55",
     name: 'Corner Aluminum Profile',
     price: 115.0,
     images: ['/images/products/corner-aluminum-profile.jpg'],
@@ -1426,7 +1426,7 @@ export const products: Product[] = [
     reviewCount: 29
   },
   {
-    id: 56,
+    id: "56",
     name: 'Diffused Aluminum Profile',
     price: 135.0,
     images: ['/images/products/diffused-aluminum-profile.jpg'],
@@ -1451,7 +1451,7 @@ export const products: Product[] = [
     reviewCount: 51
   },
   {
-    id: 57,
+    id: "57",
     name: 'Flexible Aluminum Profile',
     price: 155.0,
     images: ['/images/products/flexible-aluminum-profile.jpg'],
@@ -1476,7 +1476,7 @@ export const products: Product[] = [
     reviewCount: 23
   },
   {
-    id: 58,
+    id: "58",
     name: 'Waterproof Aluminum Profile',
     price: 175.0,
     images: ['/images/products/waterproof-aluminum-profile.jpg'],
@@ -1503,7 +1503,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Mirror Light Collection
   {
-    id: 59,
+    id: "59",
     name: 'LED Mirror Light Bar',
     price: 145.0,
     images: ['/images/products/led-mirror-light-bar.jpg'],
@@ -1528,7 +1528,7 @@ export const products: Product[] = [
     reviewCount: 78
   },
   {
-    id: 60,
+    id: "60",
     name: 'Round Mirror Light',
     price: 95.0,
     images: ['/images/products/round-mirror-light.jpg'],
@@ -1553,7 +1553,7 @@ export const products: Product[] = [
     reviewCount: 56
   },
   {
-    id: 61,
+    id: "61",
     name: 'Vanity Mirror Light Set',
     price: 185.0,
     images: ['/images/products/vanity-mirror-light-set.jpg'],
@@ -1578,7 +1578,7 @@ export const products: Product[] = [
     reviewCount: 42
   },
   {
-    id: 62,
+    id: "62",
     name: 'Backlit Mirror Light',
     price: 225.0,
     images: ['/images/products/backlit-mirror-light.jpg'],
@@ -1603,7 +1603,7 @@ export const products: Product[] = [
     reviewCount: 31
   },
   {
-    id: 63,
+    id: "63",
     name: 'Adjustable Mirror Light',
     price: 165.0,
     images: ['/images/products/adjustable-mirror-light.jpg'],
@@ -1628,7 +1628,7 @@ export const products: Product[] = [
     reviewCount: 38
   },
   {
-    id: 64,
+    id: "64",
     name: 'Smart Mirror Light',
     price: 285.0,
     images: ['/images/products/smart-mirror-light.jpg'],
@@ -1655,7 +1655,7 @@ export const products: Product[] = [
 
   // Indoor Lights - LED Track Light Collection
   {
-    id: 65,
+    id: "65",
     name: 'LED Track Light System',
     price: 185.0,
     images: ['/images/products/led-track-light-system.jpg'],
@@ -1680,7 +1680,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 66,
+    id: "66",
     name: 'Single LED Track Head',
     price: 75.0,
     images: ['/images/products/single-led-track-head.jpg'],
@@ -1705,7 +1705,7 @@ export const products: Product[] = [
     reviewCount: 89
   },
   {
-    id: 67,
+    id: "67",
     name: 'Recessed LED Track Light',
     price: 145.0,
     images: ['/images/products/recessed-led-track-light.jpg'],
@@ -1730,7 +1730,7 @@ export const products: Product[] = [
     reviewCount: 45
   },
   {
-    id: 68,
+    id: "68",
     name: 'Multi-Head LED Track Light',
     price: 225.0,
     images: ['/images/products/multi-head-led-track-light.jpg'],
@@ -1755,7 +1755,7 @@ export const products: Product[] = [
     reviewCount: 52
   },
   {
-    id: 69,
+    id: "69",
     name: 'Smart LED Track Light',
     price: 285.0,
     images: ['/images/products/smart-led-track-light.jpg'],
@@ -1780,7 +1780,7 @@ export const products: Product[] = [
     reviewCount: 28
   },
   {
-    id: 70,
+    id: "70",
     name: 'Outdoor LED Track Light',
     price: 195.0,
     images: ['/images/products/outdoor-led-track-light.jpg'],
@@ -1807,7 +1807,7 @@ export const products: Product[] = [
 
   // Indoor Lights - Wall Light Collection
   {
-    id: 71,
+    id: "71",
     name: 'Modern Wall Sconce',
     price: 125.0,
     images: ['/images/products/modern-wall-sconce.jpg'],
@@ -1832,7 +1832,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 72,
+    id: "72",
     name: 'Vintage Wall Lamp',
     price: 95.0,
     images: ['/images/products/vintage-wall-lamp.jpg'],
@@ -1857,7 +1857,7 @@ export const products: Product[] = [
     reviewCount: 89
   },
   {
-    id: 73,
+    id: "73",
     name: 'Outdoor Wall Light',
     price: 145.0,
     images: ['/images/products/outdoor-wall-light.jpg'],
@@ -1882,7 +1882,7 @@ export const products: Product[] = [
     reviewCount: 45
   },
   {
-    id: 74,
+    id: "74",
     name: 'Luxury Wall Sconce',
     price: 225.0,
     images: ['/images/products/luxury-wall-sconce.jpg'],
@@ -1907,7 +1907,7 @@ export const products: Product[] = [
     reviewCount: 31
   },
   {
-    id: 75,
+    id: "75",
     name: 'Adjustable Wall Light',
     price: 165.0,
     images: ['/images/products/adjustable-wall-light.jpg'],
@@ -1932,7 +1932,7 @@ export const products: Product[] = [
     reviewCount: 52
   },
   {
-    id: 76,
+    id: "76",
     name: 'Smart Wall Light',
     price: 185.0,
     images: ['/images/products/smart-wall-light.jpg'],
@@ -1959,7 +1959,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Stand Light Collection
   {
-    id: 77,
+    id: "77",
     name: 'Garden Stand Light',
     price: 145.0,
     images: ['/images/products/garden-stand-light.jpg'],
@@ -1984,7 +1984,7 @@ export const products: Product[] = [
     reviewCount: 78
   },
   {
-    id: 78,
+    id: "78",
     name: 'Pathway Stand Light',
     price: 95.0,
     images: ['/images/products/pathway-stand-light.jpg'],
@@ -2009,7 +2009,7 @@ export const products: Product[] = [
     reviewCount: 92
   },
   {
-    id: 79,
+    id: "79",
     name: 'Commercial Stand Light',
     price: 225.0,
     images: ['/images/products/commercial-stand-light.jpg'],
@@ -2034,7 +2034,7 @@ export const products: Product[] = [
     reviewCount: 45
   },
   {
-    id: 80,
+    id: "80",
     name: 'Decorative Stand Light',
     price: 165.0,
     images: ['/images/products/decorative-stand-light.jpg'],
@@ -2059,7 +2059,7 @@ export const products: Product[] = [
     reviewCount: 56
   },
   {
-    id: 81,
+    id: "81",
     name: 'Motion Sensor Stand Light',
     price: 185.0,
     images: ['/images/products/motion-sensor-stand-light.jpg'],
@@ -2084,7 +2084,7 @@ export const products: Product[] = [
     reviewCount: 34
   },
   {
-    id: 82,
+    id: "82",
     name: 'Smart Stand Light',
     price: 245.0,
     images: ['/images/products/smart-stand-light.jpg'],
@@ -2111,7 +2111,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Additional Garden Light Collection
   {
-    id: 83,
+    id: "83",
     name: 'Garden Spot Light',
     price: 125.0,
     images: ['/images/products/garden-spot-light.jpg'],
@@ -2136,7 +2136,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 84,
+    id: "84",
     name: 'Garden String Lights',
     price: 85.0,
     images: ['/images/products/garden-string-lights.jpg'],
@@ -2161,7 +2161,7 @@ export const products: Product[] = [
     reviewCount: 89
   },
   {
-    id: 85,
+    id: "85",
     name: 'Garden Flood Light',
     price: 165.0,
     images: ['/images/products/garden-flood-light.jpg'],
@@ -2186,7 +2186,7 @@ export const products: Product[] = [
     reviewCount: 45
   },
   {
-    id: 86,
+    id: "86",
     name: 'Garden Bollard Light',
     price: 145.0,
     images: ['/images/products/garden-bollard-light.jpg'],
@@ -2211,7 +2211,7 @@ export const products: Product[] = [
     reviewCount: 52
   },
   {
-    id: 87,
+    id: "87",
     name: 'Garden Lantern Light',
     price: 105.0,
     images: ['/images/products/garden-lantern-light.jpg'],
@@ -2236,7 +2236,7 @@ export const products: Product[] = [
     reviewCount: 78
   },
   {
-    id: 88,
+    id: "88",
     name: 'Smart Garden Light',
     price: 185.0,
     images: ['/images/products/smart-garden-light.jpg'],
@@ -2263,7 +2263,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Additional Flood Light Collection
   {
-    id: 89,
+    id: "89",
     name: 'Commercial Flood Light',
     price: 285.0,
     images: ['/images/products/commercial-flood-light.jpg'],
@@ -2288,7 +2288,7 @@ export const products: Product[] = [
     reviewCount: 45
   },
   {
-    id: 90,
+    id: "90",
     name: 'Solar Flood Light',
     price: 165.0,
     images: ['/images/products/solar-flood-light.jpg'],
@@ -2313,7 +2313,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 91,
+    id: "91",
     name: 'Adjustable Flood Light',
     price: 225.0,
     images: ['/images/products/adjustable-flood-light.jpg'],
@@ -2338,7 +2338,7 @@ export const products: Product[] = [
     reviewCount: 52
   },
   {
-    id: 92,
+    id: "92",
     name: 'Smart Flood Light',
     price: 345.0,
     images: ['/images/products/smart-flood-light.jpg'],
@@ -2363,7 +2363,7 @@ export const products: Product[] = [
     reviewCount: 28
   },
   {
-    id: 93,
+    id: "93",
     name: 'Industrial Flood Light',
     price: 385.0,
     images: ['/images/products/industrial-flood-light.jpg'],
@@ -2388,7 +2388,7 @@ export const products: Product[] = [
     reviewCount: 23
   },
   {
-    id: 94,
+    id: "94",
     name: 'Compact Flood Light',
     price: 145.0,
     images: ['/images/products/compact-flood-light.jpg'],
@@ -2415,7 +2415,7 @@ export const products: Product[] = [
 
   // Outdoor Lights - Solar Light Collection
   {
-    id: 95,
+    id: "95",
     name: 'Solar Street Light',
     price: 225.0,
     images: ['/images/products/solar-street-light.jpg'],
@@ -2440,7 +2440,7 @@ export const products: Product[] = [
     reviewCount: 45
   },
   {
-    id: 96,
+    id: "96",
     name: 'Solar Security Light',
     price: 185.0,
     images: ['/images/products/solar-security-light.jpg'],
@@ -2465,7 +2465,7 @@ export const products: Product[] = [
     reviewCount: 67
   },
   {
-    id: 97,
+    id: "97",
     name: 'Solar Garden Light',
     price: 85.0,
     images: ['/images/products/solar-garden-light.jpg'],
@@ -2490,7 +2490,7 @@ export const products: Product[] = [
     reviewCount: 89
   },
   {
-    id: 98,
+    id: "98",
     name: 'Solar Wall Light',
     price: 125.0,
     images: ['/images/products/solar-wall-light.jpg'],
@@ -2515,7 +2515,7 @@ export const products: Product[] = [
     reviewCount: 52
   },
   {
-    id: 99,
+    id: "99",
     name: 'Solar Lantern Light',
     price: 95.0,
     images: ['/images/products/solar-lantern-light.jpg'],
@@ -2540,7 +2540,7 @@ export const products: Product[] = [
     reviewCount: 78
   },
   {
-    id: 100,
+    id: "100",
     name: 'Smart Solar Light',
     price: 165.0,
     images: ['/images/products/smart-solar-light.jpg'],
