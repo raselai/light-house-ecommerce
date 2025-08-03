@@ -70,7 +70,7 @@ export default function AdminPanel() {
       if (addedProduct) {
         setAdminProducts(prev => [...prev, addedProduct]);
         setShowAddForm(false);
-        alert('Product added successfully! Note: On Vercel, products are temporary and will not persist.');
+        alert('Product added successfully to Firebase!');
       } else {
         alert('Failed to add product. Please try again.');
       }
@@ -102,7 +102,7 @@ export default function AdminPanel() {
     }
   };
 
-  const handleDeleteProduct = async (productId: number) => {
+  const handleDeleteProduct = async (productId: string) => {
     if (confirm('Are you sure you want to delete this product?')) {
       try {
         const success = await deleteProduct(productId);

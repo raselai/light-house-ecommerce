@@ -1,16 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getAllProducts, addProduct } from '@/lib/firestore';
 import { Product } from '@/types/product';
-
-const dataFilePath = path.join(process.cwd(), 'src/app/data/products.json');
 
 // GET - Fetch all products
 export async function GET() {
   try {
-    console.log('API: Fetching products from:', dataFilePath);
-    const data = await fs.readFile(dataFilePath, 'utf8');
-    const products = JSON.parse(data);
+    console.log('API: Fetching products from Firestore');
+    const products = await getAllProducts();
     console.log('API: Found products:', products.length);
     console.log('API: Products:', products);
     return NextResponse.json(products);
@@ -23,8 +19,8 @@ export async function GET() {
 // POST - Add a new product
 export async function POST(request: NextRequest) {
   try {
-    console.log('API: Adding new product');
-    const newProduct: Product = await request.json();
+    console.log('API: Adding new product to Firestore');
+    const newProduct: Omit<Product, 'id'> = await request.json();
     console.log('API: Received product data:', newProduct);
     
     // Validate required fields
@@ -35,19 +31,11 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    // Generate new ID (using timestamp for uniqueness)
-    newProduct.id = Date.now();
-    console.log('API: Generated new ID:', newProduct.id);
+    // Add product to Firestore
+    const addedProduct = await addProduct(newProduct);
+    console.log('API: Product added successfully to Firestore:', addedProduct);
     
-    // On Vercel, we can't write to files, so we'll simulate success
-    // In a real app, you'd use a database
-    console.log('API: Product added successfully (simulated on Vercel)');
-    console.log('API: Note: Product will not persist on Vercel - use a database for production');
-    
-    return NextResponse.json({
-      ...newProduct,
-      _note: 'Product added successfully but will not persist on Vercel. Use a database for production.'
-    }, { status: 201 });
+    return NextResponse.json(addedProduct, { status: 201 });
     
   } catch (error) {
     console.error('API: Error adding product:', error);

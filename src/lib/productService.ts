@@ -59,7 +59,7 @@ export async function addProduct(product: Omit<Product, 'id'>): Promise<Product 
 }
 
 // Update an existing product
-export async function updateProduct(id: number, product: Product): Promise<Product | null> {
+export async function updateProduct(id: string, product: Product): Promise<Product | null> {
   try {
     const response = await fetch(`/api/products/${id}`, {
       method: 'PUT',
@@ -81,7 +81,7 @@ export async function updateProduct(id: number, product: Product): Promise<Produ
 }
 
 // Delete a product
-export async function deleteProduct(id: number): Promise<boolean> {
+export async function deleteProduct(id: string): Promise<boolean> {
   try {
     const response = await fetch(`/api/products/${id}`, {
       method: 'DELETE',

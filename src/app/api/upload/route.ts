@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { uploadMultipleImages, generateProductImagePath } from '@/lib/storage';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,34 +24,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Category and subcategory are required' }, { status: 400 });
     }
 
-    const uploadedPaths: string[] = [];
-
-    for (const file of files) {
-      // Validate file type
+    // Filter valid image files
+    const validFiles = files.filter(file => {
       if (!file.type.startsWith('image/')) {
-        continue; // Skip non-image files
+        console.log(`Skipping non-image file: ${file.name}`);
+        return false;
       }
-
-      // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        continue; // Skip large files
+        console.log(`Skipping large file: ${file.name} (${file.size} bytes)`);
+        return false;
       }
+      return true;
+    });
 
-      // Convert file to base64 data URL
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const base64String = buffer.toString('base64');
-      const dataUrl = `data:${file.type};base64,${base64String}`;
-
-      // Return the data URL directly (no file writing)
-      uploadedPaths.push(dataUrl);
-      console.log('Image converted to base64 successfully');
+    if (validFiles.length === 0) {
+      return NextResponse.json({ error: 'No valid image files provided' }, { status: 400 });
     }
+
+    // Generate base path for Firebase Storage
+    const basePath = `products/${category}/${subcategory}`;
+    
+    // Upload files to Firebase Storage
+    const downloadURLs = await uploadMultipleImages(validFiles, basePath);
+    
+    console.log('Images uploaded to Firebase Storage successfully:', downloadURLs);
 
     return NextResponse.json({ 
       success: true, 
-      uploadedPaths,
-      message: `Successfully uploaded ${uploadedPaths.length} files`
+      uploadedPaths: downloadURLs,
+      message: `Successfully uploaded ${downloadURLs.length} files to Firebase Storage`
     });
 
   } catch (error) {

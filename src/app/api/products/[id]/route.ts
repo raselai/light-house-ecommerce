@@ -1,39 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { updateProduct, deleteProduct, getProductById } from '@/lib/firestore';
+import { deleteImage } from '@/lib/storage';
 import { Product } from '@/types/product';
 
-const dataFilePath = path.join(process.cwd(), 'src/app/data/products.json');
-
-// Helper function to delete image files
-async function deleteImageFiles(product: Product) {
+// GET - Get a single product
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const publicDir = path.join(process.cwd(), 'public');
+    const productId = params.id;
+    const product = await getProductById(productId);
     
-    // Collect all image paths from the product
-    const imagePaths = [
-      product.image,
-      product.mainImage,
-      ...(product.images || []),
-      ...(product.galleryImages || [])
-    ].filter(Boolean); // Remove any undefined/null values
-    
-    // Delete each image file
-    for (const imagePath of imagePaths) {
-      if (imagePath && imagePath.startsWith('/images/')) {
-        const filePath = path.join(publicDir, imagePath);
-        try {
-          await fs.unlink(filePath);
-          console.log(`Deleted image file: ${imagePath}`);
-        } catch (fileError) {
-          console.warn(`Could not delete image file ${imagePath}:`, fileError);
-          // Continue with other files even if one fails
-        }
-      }
+    if (!product) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
+    
+    return NextResponse.json(product);
   } catch (error) {
-    console.error('Error deleting image files:', error);
-    // Don't throw error - product deletion should still succeed
+    console.error('Error getting product:', error);
+    return NextResponse.json({ error: 'Failed to get product' }, { status: 500 });
   }
 }
 
@@ -43,26 +29,13 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const productId = parseInt(params.id);
-    const updatedProduct: Product = await request.json();
+    const productId = params.id;
+    const updatedProduct: Partial<Product> = await request.json();
     
-    // Read existing products
-    const data = await fs.readFile(dataFilePath, 'utf8');
-    const products: Product[] = JSON.parse(data);
+    // Update product in Firestore
+    const result = await updateProduct(productId, updatedProduct);
     
-    // Find and update the product
-    const productIndex = products.findIndex(p => p.id === productId);
-    if (productIndex === -1) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
-    }
-    
-    updatedProduct.id = productId; // Ensure ID doesn't change
-    products[productIndex] = updatedProduct;
-    
-    // Write back to file
-    await fs.writeFile(dataFilePath, JSON.stringify(products, null, 2));
-    
-    return NextResponse.json(updatedProduct);
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Error updating product:', error);
     return NextResponse.json({ error: 'Failed to update product' }, { status: 500 });
@@ -75,27 +48,48 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const productId = parseInt(params.id);
+    const productId = params.id;
     
-    // Read existing products
-    const data = await fs.readFile(dataFilePath, 'utf8');
-    const products: Product[] = JSON.parse(data);
-    
-    // Find and remove the product
-    const productIndex = products.findIndex(p => p.id === productId);
-    if (productIndex === -1) {
+    // Get the product first to delete associated images
+    const product = await getProductById(productId);
+    if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
     
-    const deletedProduct = products.splice(productIndex, 1)[0];
+    // Delete associated images from Firebase Storage
+    try {
+      if (product.image && product.image.startsWith('https://firebasestorage.googleapis.com/')) {
+        // Extract path from Firebase Storage URL
+        const urlParts = product.image.split('/');
+        const pathIndex = urlParts.findIndex(part => part === 'o') + 1;
+        if (pathIndex < urlParts.length) {
+          const imagePath = decodeURIComponent(urlParts[pathIndex].split('?')[0]);
+          await deleteImage(imagePath);
+        }
+      }
+      
+      // Delete additional images if they exist
+      if (product.images) {
+        for (const imageUrl of product.images) {
+          if (imageUrl.startsWith('https://firebasestorage.googleapis.com/')) {
+            const urlParts = imageUrl.split('/');
+            const pathIndex = urlParts.findIndex(part => part === 'o') + 1;
+            if (pathIndex < urlParts.length) {
+              const imagePath = decodeURIComponent(urlParts[pathIndex].split('?')[0]);
+              await deleteImage(imagePath);
+            }
+          }
+        }
+      }
+    } catch (imageError) {
+      console.warn('Error deleting images:', imageError);
+      // Continue with product deletion even if image deletion fails
+    }
     
-    // Delete associated image files
-    await deleteImageFiles(deletedProduct);
+    // Delete product from Firestore
+    const result = await deleteProduct(productId);
     
-    // Write back to file
-    await fs.writeFile(dataFilePath, JSON.stringify(products, null, 2));
-    
-    return NextResponse.json(deletedProduct);
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Error deleting product:', error);
     return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });
