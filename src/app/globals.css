@@ -389,6 +389,34 @@ body {
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
+/* Mobile search input specific styling */
+.mobile-search .search-input {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background-color: transparent;
+  width: auto;
+}
+
+/* Mobile search button specific styling */
+.mobile-search .search-btn {
+  padding: 0.75rem 1.25rem;
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobile-search .search-btn:hover {
+  background-color: #7c3aed;
+}
+
 .mobile-link {
   display: block;
   padding: 0.75rem 0;

@@ -52,6 +52,19 @@ export default function Navbar() {
     }
   };
 
+  const handleMobileMenuClick = () => {
+    setIsMobileMenuOpen(false); // Close mobile menu when any link is clicked
+  };
+
+  const handleDropdownToggle = (dropdownType: 'indoor' | 'outdoor') => {
+    if (dropdownType === 'indoor') {
+      setIsIndoorDropdownOpen(!isIndoorDropdownOpen);
+    } else {
+      setIsOutdoorDropdownOpen(!isOutdoorDropdownOpen);
+    }
+    // Don't close mobile menu when toggling dropdowns
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -172,12 +185,12 @@ export default function Navbar() {
             <button type="submit" className="search-btn">🔍</button>
           </form>
           
-          <Link href="/" className="mobile-link">Home</Link>
+          <Link href="/" className="mobile-link" onClick={handleMobileMenuClick}>Home</Link>
           
           <div className="mobile-dropdown">
             <button 
               className="mobile-dropdown-btn"
-              onClick={() => setIsIndoorDropdownOpen(!isIndoorDropdownOpen)}
+              onClick={() => handleDropdownToggle('indoor')}
             >
               Indoor Lights
               <span className="dropdown-arrow">▼</span>
@@ -189,6 +202,7 @@ export default function Navbar() {
                     key={category} 
                     href={`/categories/${category.toLowerCase().replace(' ', '-')}`}
                     className="mobile-dropdown-link"
+                    onClick={handleMobileMenuClick}
                   >
                     {category}
                   </Link>
@@ -200,7 +214,7 @@ export default function Navbar() {
           <div className="mobile-dropdown">
             <button 
               className="mobile-dropdown-btn"
-              onClick={() => setIsOutdoorDropdownOpen(!isOutdoorDropdownOpen)}
+              onClick={() => handleDropdownToggle('outdoor')}
             >
               Outdoor Lights
               <span className="dropdown-arrow">▼</span>
@@ -212,6 +226,7 @@ export default function Navbar() {
                     key={category} 
                     href={`/categories/${category.toLowerCase().replace(' ', '-')}`}
                     className="mobile-dropdown-link"
+                    onClick={handleMobileMenuClick}
                   >
                     {category}
                   </Link>
@@ -220,10 +235,10 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/about" className="mobile-link">About</Link>
-          <Link href="/contact" className="mobile-link">Contact</Link>
-          <Link href="/faq" className="mobile-link">FAQ</Link>
-          <Link href="/others" className="mobile-link">Others</Link>
+          <Link href="/about" className="mobile-link" onClick={handleMobileMenuClick}>About</Link>
+          <Link href="/contact" className="mobile-link" onClick={handleMobileMenuClick}>Contact</Link>
+          <Link href="/faq" className="mobile-link" onClick={handleMobileMenuClick}>FAQ</Link>
+          <Link href="/others" className="mobile-link" onClick={handleMobileMenuClick}>Others</Link>
           
 
         </div>
