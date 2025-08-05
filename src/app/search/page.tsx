@@ -23,7 +23,10 @@ export default function SearchPage() {
   useEffect(() => {
     const loadProducts = async () => {
       try {
+        console.log('Search: Loading products...');
         const fetchedProducts = await fetchProducts();
+        console.log('Search: Products loaded:', fetchedProducts.length);
+        console.log('Search: Sample products:', fetchedProducts.slice(0, 3));
         setProducts(fetchedProducts);
       } catch (error) {
         console.error('Error loading products:', error);
@@ -42,19 +45,47 @@ export default function SearchPage() {
       return;
     }
 
+    console.log('Search: Processing query:', query);
+    console.log('Search: Total products loaded:', products.length);
+    console.log('Search: Sample products:', products.slice(0, 3));
+
     const searchResults = products.filter(product => {
-      const searchTerm = query.toLowerCase();
+      const searchTerm = query.toLowerCase().trim();
       
-      // Search in name, category, description, and subcategory
-      const nameMatch = product.name.toLowerCase().includes(searchTerm);
-      const categoryMatch = product.category.toLowerCase().includes(searchTerm);
-      const subcategoryMatch = product.subcategory.toLowerCase().includes(searchTerm);
-      const descriptionMatch = product.description.toLowerCase().includes(searchTerm);
-      const styleMatch = product.style.toLowerCase().includes(searchTerm);
-      const materialMatch = product.material.toLowerCase().includes(searchTerm);
+      // Ensure all product fields exist before searching
+      const productName = (product.name || '').toLowerCase();
+      const productCategory = (product.category || '').toLowerCase();
+      const productSubcategory = (product.subcategory || '').toLowerCase();
+      const productDescription = (product.description || '').toLowerCase();
+      const productStyle = (product.style || '').toLowerCase();
+      const productMaterial = (product.material || '').toLowerCase();
+      const productLightType = (product.lightType || '').toLowerCase();
       
-      return nameMatch || categoryMatch || subcategoryMatch || descriptionMatch || styleMatch || materialMatch;
+      // Split search terms for more flexible matching
+      const searchTerms = searchTerm.split(' ').filter(term => term.length > 0);
+      
+      // Check if any search term matches any product field
+      const isMatch = searchTerms.some(term => {
+        const nameMatch = productName.includes(term);
+        const categoryMatch = productCategory.includes(term);
+        const subcategoryMatch = productSubcategory.includes(term);
+        const descriptionMatch = productDescription.includes(term);
+        const styleMatch = productStyle.includes(term);
+        const materialMatch = productMaterial.includes(term);
+        const lightTypeMatch = productLightType.includes(term);
+        
+        return nameMatch || categoryMatch || subcategoryMatch || 
+               descriptionMatch || styleMatch || materialMatch || lightTypeMatch;
+      });
+      
+      if (isMatch) {
+        console.log('Search: Found match:', product.name, 'for query:', query);
+      }
+      
+      return isMatch;
     });
+
+    console.log('Search: Found', searchResults.length, 'matching products');
 
     // Apply additional filters
     let filtered = searchResults;
@@ -69,13 +100,14 @@ export default function SearchPage() {
     
     if (priceRange !== 'all') {
       filtered = filtered.filter(product => {
+        const price = product.price || 0;
         switch (priceRange) {
           case '0-500':
-            return product.price <= 500;
+            return price <= 500;
           case '500-1000':
-            return product.price > 500 && product.price <= 1000;
+            return price > 500 && price <= 1000;
           case '1000+':
-            return product.price > 1000;
+            return price > 1000;
           default:
             return true;
         }
@@ -86,26 +118,27 @@ export default function SearchPage() {
     const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
-          return a.price - b.price;
+          return (a.price || 0) - (b.price || 0);
         case 'price-high':
-          return b.price - a.price;
+          return (b.price || 0) - (a.price || 0);
         case 'rating':
-          return b.rating - a.rating;
+          return (b.rating || 0) - (a.rating || 0);
         case 'newest':
-          return b.id - a.id;
+          return (b.id || 0) - (a.id || 0);
         case 'relevance':
         default:
           // Prioritize exact name matches, then category matches
-          const aNameExact = a.name.toLowerCase() === query.toLowerCase();
-          const bNameExact = b.name.toLowerCase() === query.toLowerCase();
+          const aNameExact = (a.name || '').toLowerCase() === query.toLowerCase();
+          const bNameExact = (b.name || '').toLowerCase() === query.toLowerCase();
           if (aNameExact && !bNameExact) return -1;
           if (!aNameExact && bNameExact) return 1;
-          return b.rating - a.rating; // Fallback to rating
+          return (b.rating || 0) - (a.rating || 0); // Fallback to rating
       }
     });
 
+    console.log('Search: Final filtered results:', sorted.length);
     setFilteredProducts(sorted);
-  }, [query, selectedCategory, priceRange, availability, sortBy]);
+  }, [query, products, selectedCategory, priceRange, availability, sortBy]);
 
   const categories = ['all', ...Array.from(new Set(products.map(p => p.category)))];
 
@@ -131,6 +164,12 @@ export default function SearchPage() {
           <p style={{ color: '#6b7280' }}>
             Found {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
           </p>
+          {/* Debug info - remove this after fixing */}
+          {process.env.NODE_ENV === 'development' && (
+            <p style={{ color: '#9ca3af', fontSize: '0.8rem', marginTop: '0.5rem' }}>
+              Debug: {products.length} total products loaded
+            </p>
+          )}
         </div>
 
         {/* Filters */}
@@ -252,7 +291,16 @@ export default function SearchPage() {
         {/* Search Results */}
         {query && (
           <div>
-            {filteredProducts.length > 0 ? (
+            {loading ? (
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '3rem 0',
+                color: '#6b7280'
+              }}>
+                <h3 style={{ marginBottom: '1rem' }}>Loading products...</h3>
+                <p>Please wait while we search for your products</p>
+              </div>
+            ) : filteredProducts.length > 0 ? (
               <div className="product-grid">
                 {filteredProducts.map((product) => (
                   <div key={product.id} className="product-card">
