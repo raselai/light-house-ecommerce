@@ -23,11 +23,44 @@ export async function POST(request: NextRequest) {
     const newProduct: Omit<Product, 'id'> = await request.json();
     console.log('API: Received product data:', newProduct);
     
-    // Validate required fields
-    if (!newProduct.name || !newProduct.price || !newProduct.category) {
-      console.error('API: Missing required fields');
+    // Validate required fields (only 5 mandatory fields)
+    if (!newProduct.name?.trim()) {
+      console.error('API: Missing product name');
       return NextResponse.json({ 
-        error: 'Missing required fields: name, price, and category are required' 
+        error: 'Product name is required' 
+      }, { status: 400 });
+    }
+    
+    if (!newProduct.price || parseFloat(String(newProduct.price)) <= 0) {
+      console.error('API: Invalid price');
+      return NextResponse.json({ 
+        error: 'Valid price is required' 
+      }, { status: 400 });
+    }
+    
+    if (!newProduct.category?.trim()) {
+      console.error('API: Missing category');
+      return NextResponse.json({ 
+        error: 'Category is required' 
+      }, { status: 400 });
+    }
+    
+    if (!newProduct.subcategory?.trim()) {
+      console.error('API: Missing subcategory');
+      return NextResponse.json({ 
+        error: 'Subcategory is required' 
+      }, { status: 400 });
+    }
+    
+    // Check if at least one image is provided
+    const hasImage = newProduct.image || 
+                    (newProduct.images && newProduct.images.length > 0) ||
+                    (newProduct.galleryImages && newProduct.galleryImages.length > 0);
+    
+    if (!hasImage) {
+      console.error('API: Missing images');
+      return NextResponse.json({ 
+        error: 'At least one image is required' 
       }, { status: 400 });
     }
     
@@ -35,17 +68,17 @@ export async function POST(request: NextRequest) {
     const firestoreProduct: Omit<FirestoreProduct, 'id'> = {
       name: newProduct.name,
       price: newProduct.price,
-      description: newProduct.description,
+      description: newProduct.description || '',
       category: newProduct.category,
       subcategory: newProduct.subcategory,
       image: newProduct.image || newProduct.images?.[0] || '',
       images: newProduct.images || [],
-      wattage: newProduct.wattage,
-      material: newProduct.material,
-      dimensions: newProduct.dimensions,
+      wattage: newProduct.wattage || '',
+      material: newProduct.material || '',
+      dimensions: newProduct.dimensions || '',
       inStock: newProduct.inStock ?? (newProduct.availability === 'In Stock'),
-      featured: newProduct.featured ?? newProduct.isFeatured,
-      seasonal: newProduct.seasonal ?? newProduct.isOnSale
+      featured: newProduct.featured ?? newProduct.isFeatured ?? false,
+      seasonal: newProduct.seasonal ?? newProduct.isOnSale ?? false
     };
     
     // Add product to Firestore

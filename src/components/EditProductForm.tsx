@@ -287,7 +287,7 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
             {/* Specifications */}
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Dimensions *
+                Dimensions
               </label>
               <input
                 type="text"
@@ -301,13 +301,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Bulb Type *
+                Bulb Type
               </label>
               <input
                 type="text"
@@ -321,13 +320,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Wattage *
+                Wattage
               </label>
               <input
                 type="text"
@@ -341,13 +339,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Voltage *
+                Voltage
               </label>
               <input
                 type="text"
@@ -361,13 +358,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Material *
+                Material
               </label>
               <input
                 type="text"
@@ -381,13 +377,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Style *
+                Style
               </label>
               <input
                 type="text"
@@ -401,13 +396,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Room *
+                Room
               </label>
               <input
                 type="text"
@@ -421,13 +415,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Light Type *
+                Light Type
               </label>
               <input
                 type="text"
@@ -441,13 +434,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Availability *
+                Availability
               </label>
               <select
                 value={formData.availability}
@@ -459,7 +451,6 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               >
                 {availabilityOptions.map(option => (
                   <option key={option} value={option}>{option}</option>
@@ -469,7 +460,7 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Rating *
+                Rating
               </label>
               <input
                 type="number"
@@ -485,13 +476,12 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Review Count *
+                Review Count
               </label>
               <input
                 type="number"
@@ -505,7 +495,6 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
           </div>
@@ -513,7 +502,7 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
           {/* Description - Full Width */}
           <div style={{ marginTop: '1rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-              Product Description *
+              Product Description
             </label>
             <textarea
               value={formData.description}
@@ -528,7 +517,6 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                 minHeight: '100px',
                 resize: 'vertical'
               }}
-              required
             />
           </div>
 

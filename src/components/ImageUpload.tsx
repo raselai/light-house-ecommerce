@@ -108,7 +108,7 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Product Images</h3>
+        <h3 className="text-lg font-semibold">Product Images *</h3>
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
@@ -148,7 +148,7 @@ export default function ImageUpload({ category, subcategory, onImagesUploaded, e
           Drag and drop images here, or click "Add Images" to select files
         </p>
         <p className="text-sm text-gray-500 mt-2">
-          Supported formats: JPG, PNG, WEBP (max 5MB each)
+          Supported formats: JPG, PNG, WEBP (max 5MB each) - <strong>At least one image is required</strong>
         </p>
       </div>
 

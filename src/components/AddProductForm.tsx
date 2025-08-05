@@ -99,7 +99,7 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields
+    // Validate only required fields (5 mandatory fields)
     if (!formData.name.trim()) {
       alert('Product name is required');
       return;
@@ -120,26 +120,36 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
       return;
     }
     
+    // Check if at least one image is provided
+    const hasImage = formData.image || 
+                    (formData.images && formData.images.length > 0) ||
+                    (formData.galleryImages && formData.galleryImages.length > 0);
+    
+    if (!hasImage) {
+      alert('At least one image is required');
+      return;
+    }
+    
     // Create product object WITHOUT id (API will generate it)
     const newProduct = {
       name: formData.name,
       price: parseFloat(formData.price),
-      description: formData.description,
-      dimensions: formData.dimensions,
-      bulbType: formData.bulbType,
-      wattage: formData.wattage === 'N/A' ? 'N/A' : parseInt(formData.wattage) || 0,
-      voltage: formData.voltage,
-      material: formData.material,
+      description: formData.description || '',
+      dimensions: formData.dimensions || '',
+      bulbType: formData.bulbType || '',
+      wattage: formData.wattage === 'N/A' ? 'N/A' : (formData.wattage ? parseInt(formData.wattage) : ''),
+      voltage: formData.voltage || '',
+      material: formData.material || '',
       category: formData.category,
       subcategory: formData.subcategory,
-      room: formData.room,
-      lightType: formData.lightType,
-      style: formData.style,
-      availability: formData.availability,
-      isFeatured: formData.isFeatured,
-      isOnSale: formData.isOnSale,
-      rating: parseFloat(formData.rating) || 4.5,
-      reviewCount: parseInt(formData.reviewCount) || 0,
+      room: formData.room || '',
+      lightType: formData.lightType || '',
+      style: formData.style || '',
+      availability: formData.availability || 'In Stock',
+      isFeatured: formData.isFeatured || false,
+      isOnSale: formData.isOnSale || false,
+      rating: formData.rating ? parseFloat(formData.rating) : 4.5,
+      reviewCount: formData.reviewCount ? parseInt(formData.reviewCount) : 0,
       images: formData.images.filter(img => img.trim() !== ''),
       galleryImages: formData.galleryImages.filter(img => img.trim() !== ''),
       image: formData.image || formData.images[0] || '',
@@ -291,7 +301,7 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
             {/* Specifications */}
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Dimensions *
+                Dimensions
               </label>
               <input
                 type="text"
@@ -305,13 +315,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Bulb Type *
+                Bulb Type
               </label>
               <input
                 type="text"
@@ -325,13 +334,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Wattage *
+                Wattage
               </label>
               <input
                 type="text"
@@ -345,13 +353,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Voltage *
+                Voltage
               </label>
               <input
                 type="text"
@@ -365,13 +372,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Material *
+                Material
               </label>
               <input
                 type="text"
@@ -385,13 +391,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Style *
+                Style
               </label>
               <input
                 type="text"
@@ -405,13 +410,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Room *
+                Room
               </label>
               <input
                 type="text"
@@ -425,13 +429,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Light Type *
+                Light Type
               </label>
               <input
                 type="text"
@@ -445,13 +448,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Availability *
+                Availability
               </label>
               <select
                 value={formData.availability}
@@ -463,7 +465,6 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               >
                 {availabilityOptions.map(option => (
                   <option key={option} value={option}>{option}</option>
@@ -473,7 +474,7 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Rating *
+                Rating
               </label>
               <input
                 type="number"
@@ -489,13 +490,12 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Review Count *
+                Review Count
               </label>
               <input
                 type="number"
@@ -509,7 +509,6 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
           </div>
@@ -517,7 +516,7 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
           {/* Description - Full Width */}
           <div style={{ marginTop: '1rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-              Product Description *
+              Product Description
             </label>
             <textarea
               value={formData.description}
@@ -532,7 +531,6 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                 minHeight: '100px',
                 resize: 'vertical'
               }}
-              required
             />
           </div>
 
