@@ -271,91 +271,94 @@ export default function AdminPanel() {
             <div style={{
               background: 'white',
               borderRadius: '12px',
-              overflow: 'hidden',
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
             }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr style={{ background: '#f9fafb' }}>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Product
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Category
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Price
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Status
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {adminProducts.map((product) => (
-                    <tr key={product.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                      <td style={{ padding: '1rem' }}>
-                        <div>
-                          <div style={{ fontWeight: 'bold' }}>{product.name}</div>
-                          <div style={{ fontSize: '0.9rem', color: '#6b7280' }}>
-                            {product.isFeatured && <span style={{ color: '#8b5cf6', marginRight: '0.5rem' }}>⭐ Featured</span>}
-                            {product.isOnSale && <span style={{ color: '#dc2626' }}>🔥 On Sale</span>}
-                          </div>
-                        </div>
-                      </td>
-                      <td style={{ padding: '1rem' }}>{product.category}</td>
-                      <td style={{ padding: '1rem' }}>AED {product.price.toLocaleString()}</td>
-                      <td style={{ padding: '1rem' }}>
-                        <span style={{
-                          padding: '0.25rem 0.75rem',
-                          borderRadius: '20px',
-                          fontSize: '0.8rem',
-                          fontWeight: 'bold',
-                          background: product.availability === 'In Stock' ? '#dcfce7' : '#fef2f2',
-                          color: product.availability === 'In Stock' ? '#059669' : '#dc2626'
-                        }}>
-                          {product.availability}
-                        </span>
-                      </td>
-                      <td style={{ padding: '1rem' }}>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                          <button 
-                            onClick={() => handleEditClick(product)}
-                            style={{
-                              padding: '0.25rem 0.75rem',
-                              background: '#8b5cf6',
-                              color: 'white',
-                              border: 'none',
-                              borderRadius: '4px',
-                              cursor: 'pointer',
-                              fontSize: '0.8rem'
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => handleDeleteProduct(product.id)}
-                            style={{
-                              padding: '0.25rem 0.75rem',
-                              background: '#dc2626',
-                              color: 'white',
-                              border: 'none',
-                              borderRadius: '4px',
-                              cursor: 'pointer',
-                              fontSize: '0.8rem'
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
+                  <thead>
+                    <tr style={{ background: '#f9fafb' }}>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Product
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Category
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Price
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Status
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Actions
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {adminProducts.map((product) => (
+                      <tr key={product.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                        <td style={{ padding: '1rem' }}>
+                          <div>
+                            <div style={{ fontWeight: 'bold' }}>{product.name}</div>
+                            <div style={{ fontSize: '0.9rem', color: '#6b7280' }}>
+                              {product.isFeatured && <span style={{ color: '#8b5cf6', marginRight: '0.5rem' }}>⭐ Featured</span>}
+                              {product.isOnSale && <span style={{ color: '#dc2626' }}>🔥 On Sale</span>}
+                            </div>
+                          </div>
+                        </td>
+                        <td style={{ padding: '1rem' }}>{product.category}</td>
+                        <td style={{ padding: '1rem' }}>AED {product.price.toLocaleString()}</td>
+                        <td style={{ padding: '1rem' }}>
+                          <span style={{
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '20px',
+                            fontSize: '0.8rem',
+                            fontWeight: 'bold',
+                            background: product.availability === 'In Stock' ? '#dcfce7' : '#fef2f2',
+                            color: product.availability === 'In Stock' ? '#059669' : '#dc2626'
+                          }}>
+                            {product.availability}
+                          </span>
+                        </td>
+                        <td style={{ padding: '1rem' }}>
+                          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                            <button 
+                              onClick={() => handleEditClick(product)}
+                              style={{
+                                padding: '0.25rem 0.75rem',
+                                background: '#8b5cf6',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                fontSize: '0.8rem',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteProduct(product.id)}
+                              style={{
+                                padding: '0.25rem 0.75rem',
+                                background: '#dc2626',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                fontSize: '0.8rem',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )
@@ -368,56 +371,57 @@ export default function AdminPanel() {
             <div style={{
               background: 'white',
               borderRadius: '12px',
-              overflow: 'hidden',
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
             }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr style={{ background: '#f9fafb' }}>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Date
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Product
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Customer
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Message
-                    </th>
-                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {inquiries.map((inquiry) => (
-                    <tr key={inquiry.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                      <td style={{ padding: '1rem' }}>{inquiry.date}</td>
-                      <td style={{ padding: '1rem' }}>{inquiry.product}</td>
-                      <td style={{ padding: '1rem' }}>{inquiry.customer}</td>
-                      <td style={{ padding: '1rem' }}>
-                        <div style={{ maxWidth: '300px' }}>
-                          {inquiry.message}
-                        </div>
-                      </td>
-                      <td style={{ padding: '1rem' }}>
-                        <span style={{
-                          padding: '0.25rem 0.75rem',
-                          borderRadius: '20px',
-                          fontSize: '0.8rem',
-                          fontWeight: 'bold',
-                          background: inquiry.status === 'New' ? '#fef3c7' : '#dcfce7',
-                          color: inquiry.status === 'New' ? '#d97706' : '#059669'
-                        }}>
-                          {inquiry.status}
-                        </span>
-                      </td>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
+                  <thead>
+                    <tr style={{ background: '#f9fafb' }}>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Date
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Product
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Customer
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Message
+                      </th>
+                      <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb' }}>
+                        Status
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {inquiries.map((inquiry) => (
+                      <tr key={inquiry.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                        <td style={{ padding: '1rem' }}>{inquiry.date}</td>
+                        <td style={{ padding: '1rem' }}>{inquiry.product}</td>
+                        <td style={{ padding: '1rem' }}>{inquiry.customer}</td>
+                        <td style={{ padding: '1rem' }}>
+                          <div style={{ maxWidth: '300px' }}>
+                            {inquiry.message}
+                          </div>
+                        </td>
+                        <td style={{ padding: '1rem' }}>
+                          <span style={{
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '20px',
+                            fontSize: '0.8rem',
+                            fontWeight: 'bold',
+                            background: inquiry.status === 'New' ? '#fef3c7' : '#dcfce7',
+                            color: inquiry.status === 'New' ? '#d97706' : '#059669'
+                          }}>
+                            {inquiry.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}

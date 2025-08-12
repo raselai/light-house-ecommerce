@@ -167,8 +167,8 @@ export default function Home() {
               </div>
             ) : (
               featuredProducts.map((product) => (
-                <div key={product.id} className="product-card">
-                  <Link
+              <div key={product.id} className="product-card">
+                <Link
                     href={`/products/${product.id}`}
                   style={{
                     textDecoration: 'none',
