@@ -182,6 +182,17 @@ const categoryData = {
       'No wiring required',
       'Environmentally friendly'
     ]
+  },
+  'others': {
+    name: 'Other Products',
+    description: 'Discover our diverse collection of unique lighting solutions that don\'t fit into traditional categories. From custom designs to specialty lighting, find the perfect solution for your specific needs.',
+    featureImage: '/images/categories/ceiling-lights.jpg',
+    features: [
+      'Custom lighting solutions',
+      'Specialty and unique designs',
+      'One-of-a-kind pieces',
+      'Versatile applications'
+    ]
   }
 };
 

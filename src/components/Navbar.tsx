@@ -144,7 +144,7 @@ export default function Navbar() {
           <Link href="/about" className="navbar-link">About</Link>
           <Link href="/contact" className="navbar-link">Contact</Link>
           <Link href="/faq" className="navbar-link">FAQ</Link>
-          <Link href="/others" className="navbar-link">Others</Link>
+          <Link href="/categories/others" className="navbar-link">Others</Link>
           
 
         </div>
@@ -238,7 +238,7 @@ export default function Navbar() {
           <Link href="/about" className="mobile-link" onClick={handleMobileMenuClick}>About</Link>
           <Link href="/contact" className="mobile-link" onClick={handleMobileMenuClick}>Contact</Link>
           <Link href="/faq" className="mobile-link" onClick={handleMobileMenuClick}>FAQ</Link>
-          <Link href="/others" className="mobile-link" onClick={handleMobileMenuClick}>Others</Link>
+          <Link href="/categories/others" className="mobile-link" onClick={handleMobileMenuClick}>Others</Link>
           
 
         </div>

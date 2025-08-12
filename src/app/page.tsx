@@ -73,7 +73,7 @@ export default function Home() {
     { name: 'Garden Light', href: '/categories/garden-light', icon: '🌿', image: '/images/categories/garden-lights.jpeg' },
     { name: 'Floodlight', href: '/categories/floodlight', icon: '🔦', image: '/images/categories/flood-lights.jpg' },
     { name: 'Solar Light', href: '/categories/solar-light', icon: '☀️', image: '/images/categories/Solar-lights.jpg' },
-    { name: 'Others', href: '/others', icon: '✨', image: '/images/categories/ceiling-lights.jpg' }
+    { name: 'Others', href: '/categories/others', icon: '✨', image: '/images/categories/ceiling-lights.jpg' }
   ];
 
   return (

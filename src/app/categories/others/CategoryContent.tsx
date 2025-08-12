@@ -1,0 +1,293 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import ProductCard from '@/app/components/ProductCard';
+import Image from 'next/image';
+import { fetchProducts } from '@/lib/productService';
+
+// Category data specifically for Others
+const categoryData = {
+  'others': {
+    name: 'Other Products',
+    description: 'Discover our diverse collection of unique lighting solutions that don\'t fit into traditional categories. From custom designs to specialty lighting, find the perfect solution for your specific needs.',
+    featureImage: '/images/categories/ceiling-lights.jpg',
+    features: [
+      'Custom lighting solutions',
+      'Specialty and unique designs',
+      'One-of-a-kind pieces',
+      'Versatile applications'
+    ]
+  }
+};
+
+type CategoryContentProps = {
+  categorySlug: string;
+};
+
+export default function CategoryContent({ categorySlug }: CategoryContentProps) {
+  const categoryInfo = categoryData[categorySlug as keyof typeof categoryData] || {
+    name: 'Other Products',
+    description: 'Discover our diverse collection of unique lighting solutions.',
+    featureImage: '/images/categories/ceiling-lights.jpg',
+    features: []
+  };
+  
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load products on component mount
+  useEffect(() => {
+    console.log('useEffect: Starting to load products for Others category');
+    const loadProducts = async () => {
+      try {
+        console.log('Fetching products for Others category...');
+        const fetchedProducts = await fetchProducts();
+        console.log('All fetched products for Others:', fetchedProducts);
+        console.log('Number of products loaded for Others:', fetchedProducts.length);
+        setProducts(fetchedProducts || []);
+      } catch (error) {
+        console.error('Error loading products for Others category:', error);
+        setProducts([]); // Set empty array on error
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadProducts();
+  }, []);
+  
+  // Filter products specifically for Others category
+  const otherProducts = products.filter((product: any) => {
+    const productCategory = product.category?.toLowerCase() || '';
+    
+    // Debug logging
+    console.log('Others filtering for product:', product.name, {
+      categorySlug,
+      productCategory,
+      productName: product.name
+    });
+    
+    // Check if the product category is "Others" (case-insensitive)
+    if (productCategory === 'others') {
+      console.log('Match found for Others category');
+      return true;
+    }
+    
+    return false;
+  });
+
+  console.log('Filtered Others products count:', otherProducts.length);
+
+  if (loading) {
+    return (
+      <div style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        background: '#f9fafb'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <p>Loading Other Products...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {/* Hero Section */}
+      <section className="category-hero" style={{
+        position: 'relative',
+        height: '400px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundImage: `url(${categoryInfo.featureImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: '#1f2937',
+        textAlign: 'center'
+      }}>
+        <div className="category-hero-overlay" style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          padding: '2rem'
+        }}>
+          <h1 className="category-hero-title" style={{
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: 'bold',
+            marginBottom: '1rem',
+            textShadow: '2px 2px 4px rgba(255, 255, 255, 0.8)'
+          }}>
+            {categoryInfo.name}
+          </h1>
+          <p style={{
+            fontSize: 'clamp(1rem, 3vw, 1.2rem)',
+            maxWidth: '600px',
+            margin: '0 auto',
+            textShadow: '1px 1px 2px rgba(255, 255, 255, 0.8)'
+          }}>
+            {categoryInfo.description}
+          </p>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section style={{ 
+        padding: '3rem 0', 
+        backgroundColor: '#f9fafb',
+        borderBottom: '1px solid #e5e7eb'
+      }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '2rem',
+            marginTop: '2rem'
+          }}>
+            {categoryInfo.features.map((feature, index) => (
+              <div key={index} style={{
+                backgroundColor: 'white',
+                padding: '1.5rem',
+                borderRadius: '8px',
+                textAlign: 'center',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                border: '1px solid #e5e7eb'
+              }}>
+                <div style={{
+                  fontSize: '2rem',
+                  marginBottom: '1rem'
+                }}>
+                  ✨
+                </div>
+                <h3 style={{
+                  fontSize: '1.1rem',
+                  fontWeight: '600',
+                  marginBottom: '0.5rem',
+                  color: '#374151'
+                }}>
+                  {feature}
+                </h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section style={{ padding: '4rem 0' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+            fontWeight: 'bold',
+            marginBottom: '2rem',
+            textAlign: 'center',
+            color: '#1f2937'
+          }}>
+            {otherProducts.length > 0 ? `${otherProducts.length} Products Available` : 'No Products Available'}
+          </h2>
+
+          {otherProducts.length > 0 ? (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '2rem',
+              marginTop: '2rem'
+            }}>
+              {otherProducts.map((product: any) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              textAlign: 'center',
+              padding: '3rem',
+              backgroundColor: '#f9fafb',
+              borderRadius: '8px',
+              border: '2px dashed #d1d5db'
+            }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💡</div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '600',
+                marginBottom: '0.5rem',
+                color: '#374151'
+              }}>
+                No Products Available
+              </h3>
+              <p style={{
+                color: '#6b7280',
+                fontSize: '1rem'
+              }}>
+                Currently no products in this category. Check back soon for new additions!
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section style={{
+        backgroundColor: '#1f2937',
+        color: 'white',
+        padding: '4rem 0',
+        textAlign: 'center'
+      }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+            fontWeight: 'bold',
+            marginBottom: '1rem'
+          }}>
+            Need Something Special?
+          </h2>
+          <p style={{
+            fontSize: '1.1rem',
+            marginBottom: '2rem',
+            maxWidth: '600px',
+            margin: '0 auto 2rem'
+          }}>
+            Can't find what you're looking for? Contact us for custom lighting solutions tailored to your specific requirements.
+          </p>
+          <a
+            href="https://wa.me/971506970154?text=Hi! I'm interested in custom lighting solutions from your Others category."
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: '#25d366',
+              color: 'white',
+              padding: '1rem 2rem',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: '1.1rem',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            }}
+          >
+            💬 Contact via WhatsApp
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
