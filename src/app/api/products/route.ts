@@ -81,11 +81,10 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    // Convert to Firestore Product format
+    // Convert to Firestore Product format and filter out undefined values
     const firestoreProduct: Omit<FirestoreProduct, 'id'> = {
       name: newProduct.name,
       price: newProduct.price || 0, // Default to 0 if no price provided
-      offerPrice: newProduct.offerPrice,
       description: newProduct.description || '',
       category: newProduct.category,
       subcategory: newProduct.subcategory,
@@ -99,9 +98,21 @@ export async function POST(request: NextRequest) {
       seasonal: newProduct.seasonal ?? newProduct.isOnSale ?? false,
       isOnSale: newProduct.isOnSale || false
     };
+
+    // Only add offerPrice if it has a valid value
+    if (newProduct.offerPrice && newProduct.offerPrice > 0) {
+      (firestoreProduct as any).offerPrice = newProduct.offerPrice;
+    }
+
+    // Clean the object by removing any undefined values
+    const cleanProduct = Object.fromEntries(
+      Object.entries(firestoreProduct).filter(([_, value]) => value !== undefined)
+    ) as Omit<FirestoreProduct, 'id'>;
+
+    console.log('API: Cleaned product data for Firestore:', cleanProduct);
     
     // Add product to Firestore
-    const addedProduct = await addProduct(firestoreProduct);
+    const addedProduct = await addProduct(cleanProduct);
     console.log('API: Product added successfully to Firestore:', addedProduct);
     
     return NextResponse.json(addedProduct, { status: 201 });
