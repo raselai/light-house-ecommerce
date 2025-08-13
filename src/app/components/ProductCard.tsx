@@ -12,7 +12,8 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const handleWhatsAppInquiry = () => {
-    const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toFixed(2)}. Can you provide more details?`;
+    const displayPrice = product.isOnSale && product.offerPrice ? product.offerPrice : product.price;
+    const message = `Hi! I'm interested in the ${product.name} priced at AED ${displayPrice.toFixed(2)}. Can you provide more details?`;
     const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -83,9 +84,41 @@ export default function ProductCard({ product }: ProductCardProps) {
         justifyContent: 'space-between', 
         alignItems: 'center' 
       }}>
-        <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-          AED {product.price.toLocaleString()}
-        </span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+          {product.isOnSale && product.offerPrice ? (
+            <>
+              <span style={{ 
+                fontSize: '1.2rem', 
+                fontWeight: 'bold', 
+                color: '#dc2626' 
+              }}>
+                AED {product.offerPrice.toLocaleString()}
+              </span>
+              <span style={{ 
+                fontSize: '0.9rem', 
+                color: '#6b7280', 
+                textDecoration: 'line-through' 
+              }}>
+                AED {product.price.toLocaleString()}
+              </span>
+              <span style={{ 
+                fontSize: '0.8rem', 
+                color: '#dc2626', 
+                fontWeight: '600',
+                backgroundColor: '#fef2f2',
+                padding: '0.125rem 0.5rem',
+                borderRadius: '4px',
+                alignSelf: 'flex-start'
+              }}>
+                SALE!
+              </span>
+            </>
+          ) : (
+            <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+              {product.price ? `AED ${product.price.toLocaleString()}` : 'Contact for Price'}
+            </span>
+          )}
+        </div>
         <button 
           onClick={handleWhatsAppInquiry}
           className="btn btn-outline"

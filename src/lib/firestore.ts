@@ -17,6 +17,7 @@ export interface Product {
   id?: string;
   name: string;
   price: number;
+  offerPrice?: number; // Sale price when isOnSale is true
   description: string;
   category: string;
   subcategory: string;
@@ -29,6 +30,7 @@ export interface Product {
   inStock: boolean;
   featured?: boolean;
   seasonal?: boolean;
+  isOnSale?: boolean; // Sale flag
   createdAt?: Date;
   updatedAt?: Date;
 }

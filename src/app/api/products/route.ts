@@ -31,11 +31,28 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    if (!newProduct.price || parseFloat(String(newProduct.price)) <= 0) {
+    // Price is now optional - only validate if provided
+    if (newProduct.price && parseFloat(String(newProduct.price)) <= 0) {
       console.error('API: Invalid price');
       return NextResponse.json({ 
-        error: 'Valid price is required' 
+        error: 'Price must be greater than 0 if provided' 
       }, { status: 400 });
+    }
+    
+    // Validate offer price if on sale
+    if (newProduct.isOnSale && newProduct.offerPrice) {
+      if (parseFloat(String(newProduct.offerPrice)) <= 0) {
+        console.error('API: Invalid offer price');
+        return NextResponse.json({ 
+          error: 'Offer price must be greater than 0' 
+        }, { status: 400 });
+      }
+      if (newProduct.price && parseFloat(String(newProduct.offerPrice)) >= parseFloat(String(newProduct.price))) {
+        console.error('API: Invalid offer price');
+        return NextResponse.json({ 
+          error: 'Offer price must be less than the original price' 
+        }, { status: 400 });
+      }
     }
     
     if (!newProduct.category?.trim()) {
@@ -67,7 +84,8 @@ export async function POST(request: NextRequest) {
     // Convert to Firestore Product format
     const firestoreProduct: Omit<FirestoreProduct, 'id'> = {
       name: newProduct.name,
-      price: newProduct.price,
+      price: newProduct.price || 0, // Default to 0 if no price provided
+      offerPrice: newProduct.offerPrice,
       description: newProduct.description || '',
       category: newProduct.category,
       subcategory: newProduct.subcategory,
@@ -78,7 +96,8 @@ export async function POST(request: NextRequest) {
       dimensions: newProduct.dimensions || '',
       inStock: newProduct.inStock ?? (newProduct.availability === 'In Stock'),
       featured: newProduct.featured ?? newProduct.isFeatured ?? false,
-      seasonal: newProduct.seasonal ?? newProduct.isOnSale ?? false
+      seasonal: newProduct.seasonal ?? newProduct.isOnSale ?? false,
+      isOnSale: newProduct.isOnSale || false
     };
     
     // Add product to Firestore

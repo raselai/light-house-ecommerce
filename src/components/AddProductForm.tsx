@@ -12,6 +12,7 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
   const [formData, setFormData] = useState({
     name: '',
     price: '',
+    offerPrice: '',
     description: '',
     dimensions: '',
     bulbType: '',
@@ -99,15 +100,28 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate only required fields (5 mandatory fields)
+    // Validate only required fields (4 mandatory fields)
     if (!formData.name.trim()) {
       alert('Product name is required');
       return;
     }
     
-    if (!formData.price || parseFloat(formData.price) <= 0) {
-      alert('Valid price is required');
+    // Price is now optional - only validate if provided
+    if (formData.price && parseFloat(formData.price) <= 0) {
+      alert('Price must be greater than 0 if provided');
       return;
+    }
+    
+    // Validate offer price if on sale
+    if (formData.isOnSale && formData.offerPrice) {
+      if (parseFloat(formData.offerPrice) <= 0) {
+        alert('Offer price must be greater than 0');
+        return;
+      }
+      if (formData.price && parseFloat(formData.offerPrice) >= parseFloat(formData.price)) {
+        alert('Offer price must be less than the original price');
+        return;
+      }
     }
     
     if (!formData.category) {
@@ -133,7 +147,8 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
     // Create product object WITHOUT id (API will generate it)
     const newProduct = {
       name: formData.name,
-      price: parseFloat(formData.price),
+      price: formData.price ? parseFloat(formData.price) : undefined,
+      offerPrice: formData.isOnSale && formData.offerPrice ? parseFloat(formData.offerPrice) : undefined,
       description: formData.description || '',
       dimensions: formData.dimensions || '',
       bulbType: formData.bulbType || '',
@@ -230,13 +245,14 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Price (AED) *
+                Price (AED)
               </label>
               <input
                 type="number"
                 step="0.01"
                 value={formData.price}
                 onChange={(e) => handleInputChange('price', e.target.value)}
+                placeholder="Optional - Enter price in AED"
                 style={{
                   width: '100%',
                   padding: '0.75rem',
@@ -244,9 +260,36 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
                   borderRadius: '8px',
                   fontSize: '1rem'
                 }}
-                required
               />
             </div>
+
+            {/* Offer Price - Only show when On Sale is checked */}
+            {formData.isOnSale && (
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#dc2626' }}>
+                  Offer Price (AED) *
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.offerPrice}
+                  onChange={(e) => handleInputChange('offerPrice', e.target.value)}
+                  placeholder="Enter sale price (must be less than original price)"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #dc2626',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    backgroundColor: '#fef2f2'
+                  }}
+                  required
+                />
+                <small style={{ color: '#dc2626', fontSize: '0.875rem', marginTop: '0.25rem', display: 'block' }}>
+                  Must be less than the original price
+                </small>
+              </div>
+            )}
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -571,7 +614,13 @@ export default function AddProductForm({ onClose, onSave }: AddProductFormProps)
               <input
                 type="checkbox"
                 checked={formData.isOnSale}
-                onChange={(e) => handleInputChange('isOnSale', e.target.checked)}
+                onChange={(e) => {
+                  handleInputChange('isOnSale', e.target.checked);
+                  // Clear offer price when unchecking On Sale
+                  if (!e.target.checked) {
+                    handleInputChange('offerPrice', '');
+                  }
+                }}
               />
               On Sale
             </label>

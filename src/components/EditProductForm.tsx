@@ -13,6 +13,7 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
   const [formData, setFormData] = useState({
     name: '',
     price: '',
+    offerPrice: '',
     description: '',
     dimensions: '',
     bulbType: '',
@@ -42,6 +43,7 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
       setFormData({
         name: product.name || '',
         price: product.price?.toString() || '',
+        offerPrice: product.offerPrice?.toString() || '',
         description: product.description || '',
         dimensions: product.dimensions || '',
         bulbType: product.bulbType || '',
@@ -135,6 +137,7 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
       ...product, // Keep original ID and other fields
       ...formData,
       price: parseFloat(formData.price),
+      offerPrice: formData.isOnSale && formData.offerPrice ? parseFloat(formData.offerPrice) : undefined,
       wattage: formData.wattage === 'N/A' ? 'N/A' : parseInt(formData.wattage),
       rating: parseFloat(formData.rating),
       reviewCount: parseInt(formData.reviewCount),
@@ -233,6 +236,34 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
                 required
               />
             </div>
+
+            {/* Offer Price - Only show when On Sale is checked */}
+            {formData.isOnSale && (
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#dc2626' }}>
+                  Offer Price (AED) *
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.offerPrice}
+                  onChange={(e) => handleInputChange('offerPrice', e.target.value)}
+                  placeholder="Enter sale price (must be less than original price)"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #dc2626',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    backgroundColor: '#fef2f2'
+                  }}
+                  required
+                />
+                <small style={{ color: '#dc2626', fontSize: '0.875rem', marginTop: '0.25rem', display: 'block' }}>
+                  Must be less than the original price
+                </small>
+              </div>
+            )}
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -559,7 +590,13 @@ export default function EditProductForm({ product, onClose, onSave }: EditProduc
               <input
                 type="checkbox"
                 checked={formData.isOnSale}
-                onChange={(e) => handleInputChange('isOnSale', e.target.checked)}
+                onChange={(e) => {
+                  handleInputChange('isOnSale', e.target.checked);
+                  // Clear offer price when unchecking On Sale
+                  if (!e.target.checked) {
+                    handleInputChange('offerPrice', '');
+                  }
+                }}
               />
               On Sale
             </label>

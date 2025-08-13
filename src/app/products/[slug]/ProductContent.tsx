@@ -46,7 +46,8 @@ export default function ProductContent({ slug }: ProductContentProps) {
   }
 
   const handleWhatsAppInquiry = () => {
-    const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toFixed(2)}. Can you provide more details about:
+    const displayPrice = product.isOnSale && product.offerPrice ? product.offerPrice : product.price;
+    const message = `Hi! I'm interested in the ${product.name} priced at AED ${displayPrice.toFixed(2)}. Can you provide more details about:
 - Availability
 - Installation service
 - Warranty information
@@ -80,14 +81,48 @@ Product Details:
             <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
               {product.name}
             </h1>
-            <p style={{ 
-              fontSize: '2rem', 
-              color: '#1f2937', 
-              marginBottom: '2rem',
-              fontWeight: 'bold'
-            }}>
-              AED {product.price.toFixed(2)}
-            </p>
+            <div style={{ marginBottom: '2rem' }}>
+              {product.isOnSale && product.offerPrice ? (
+                <>
+                  <p style={{ 
+                    fontSize: '2rem', 
+                    color: '#dc2626', 
+                    marginBottom: '0.5rem',
+                    fontWeight: 'bold'
+                  }}>
+                    AED {product.offerPrice.toFixed(2)}
+                  </p>
+                  <p style={{ 
+                    fontSize: '1.2rem', 
+                    color: '#6b7280', 
+                    marginBottom: '0.5rem',
+                    textDecoration: 'line-through'
+                  }}>
+                    AED {product.price.toFixed(2)}
+                  </p>
+                  <span style={{ 
+                    fontSize: '0.9rem', 
+                    color: '#dc2626', 
+                    fontWeight: '600',
+                    backgroundColor: '#fef2f2',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '6px',
+                    display: 'inline-block'
+                  }}>
+                    SALE!
+                  </span>
+                </>
+              ) : (
+                <p style={{ 
+                  fontSize: '2rem', 
+                  color: '#1f2937', 
+                  marginBottom: '2rem',
+                  fontWeight: 'bold'
+                }}>
+                  {product.price ? `AED ${product.price.toFixed(2)}` : 'Contact for Price'}
+                </p>
+              )}
+            </div>
             
             <div style={{ marginBottom: '2rem' }}>
               <p style={{ color: '#6b7280', lineHeight: '1.6' }}>

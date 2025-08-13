@@ -2,6 +2,7 @@ export interface Product {
   id: string;
   name: string;
   price: number;
+  offerPrice?: number; // Sale price when isOnSale is true
   images: string[];
   image?: string; // Single image for display
   mainImage?: string; // Primary product image
