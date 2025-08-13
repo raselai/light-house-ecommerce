@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getProductImagePath } from '@/lib/utils';
 import { fetchProducts } from '@/lib/productService';
 import Link from 'next/link';
 import Image from 'next/image';
+import WhatsAppIcon from '@/components/WhatsAppIcon';
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
@@ -342,12 +343,10 @@ export default function SearchPage() {
                       <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
                         AED {product.price.toLocaleString()}
                       </span>
-                      <button 
+                      <WhatsAppIcon 
                         onClick={() => handleWhatsAppInquiry(product)}
-                        className="btn btn-outline"
-                      >
-                        Inquire on WhatsApp
-                      </button>
+                        size={20}
+                      />
                     </div>
                   </div>
                 ))}

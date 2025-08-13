@@ -1,10 +1,11 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { fetchProducts } from '@/lib/productService';
 import { getProductImagePath } from '@/lib/utils';
+import WhatsAppIcon from '@/components/WhatsAppIcon';
 
 export default function Home() {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
@@ -206,16 +207,14 @@ export default function Home() {
                   <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
                     AED {product.price.toLocaleString()}
                   </span>
-                  <button 
+                  <WhatsAppIcon 
                     onClick={() => {
                       const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toLocaleString()}. Can you provide more details?`;
                       const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
                       window.open(whatsappUrl, '_blank');
                     }}
-                    className="btn btn-outline"
-                  >
-                    Inquire on WhatsApp
-                  </button>
+                    size={20}
+                  />
                 </div>
               </div>
             ))
@@ -312,17 +311,14 @@ export default function Home() {
                       AED {(product.price * 1.2).toLocaleString()}
                     </span>
                   </div>
-                  <button 
+                  <WhatsAppIcon 
                     onClick={() => {
                       const message = `Hi! I'm interested in the ${product.name} on sale for AED ${product.price.toLocaleString()}. Can you provide more details?`;
                       const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
                       window.open(whatsappUrl, '_blank');
                     }}
-                    className="btn btn-outline"
-                    style={{ borderColor: '#f59e0b', color: '#d97706' }}
-                  >
-                    Inquire on WhatsApp
-                  </button>
+                    size={20}
+                  />
                 </div>
               </div>
             ))

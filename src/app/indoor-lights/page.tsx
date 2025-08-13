@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import WhatsAppIcon from '@/components/WhatsAppIcon';
 
 export default function IndoorLights() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -334,38 +335,30 @@ export default function IndoorLights() {
                   {product.availability}
                 </span>
               </div>
-              <button
-                onClick={() => {
-                  const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toLocaleString()}. Can you provide more details?`;
-                  const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
-                  window.open(whatsappUrl, '_blank');
-                }}
-                className="btn btn-outline"
-                disabled={product.availability === 'Out of Stock'}
-              >
-                {product.availability === 'Out of Stock' ? 'Out of Stock' : 'Inquire on WhatsApp'}
-              </button>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '1rem'
+              }}>
+                <WhatsAppIcon
+                  onClick={() => {
+                    const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toLocaleString()}. Can you provide more details?`;
+                    const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                  }}
+                  disabled={product.availability === 'Out of Stock'}
+                  size={20}
+                />
+              </div>
             </div>
           ))}
         </div>
 
         {filteredProducts.length === 0 && (
           <div style={{ textAlign: 'center', padding: '3rem' }}>
-            <p style={{ fontSize: '1.2rem', color: '#6b7280' }}>
-              No products found matching your criteria.
-            </p>
-            <button
-              onClick={() => {
-                setSelectedCategory('all');
-                setPriceRange('all');
-                setAvailability('all');
-                setSortBy('newest');
-              }}
-              className="btn btn-primary"
-              style={{ marginTop: '1rem' }}
-            >
-              Clear Filters
-            </button>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search terms</p>
           </div>
         )}
       </div>

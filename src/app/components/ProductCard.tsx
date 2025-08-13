@@ -1,10 +1,12 @@
 
 'use client';
 
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Product } from '@/types/product';
 import { getProductImagePath } from '@/lib/utils';
+import WhatsAppIcon from '@/components/WhatsAppIcon';
 
 type ProductCardProps = {
   product: Product;
@@ -119,12 +121,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
         </div>
-        <button 
+        <WhatsAppIcon 
           onClick={handleWhatsAppInquiry}
-          className="btn btn-outline"
-        >
-          Inquire on WhatsApp
-        </button>
+          size={20}
+        />
       </div>
     </div>
   );

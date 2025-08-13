@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+import WhatsAppIcon from '@/components/WhatsAppIcon';
 
 const faqs = [
   {
@@ -209,35 +210,10 @@ export default function FAQPage() {
             }}>
               Can't find the answer you're looking for? Our friendly team is here to help via WhatsApp.
             </p>
-            <button 
+            <WhatsAppIcon 
               onClick={handleWhatsAppContact}
-              style={{
-                background: 'linear-gradient(135deg, #25d366 0%, #128c7e 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                padding: '1rem 2rem',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 4px 6px rgba(37, 211, 102, 0.2)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 12px rgba(37, 211, 102, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 6px rgba(37, 211, 102, 0.2)';
-              }}
-            >
-              <span style={{ fontSize: '1.2rem' }}>💬</span>
-              Ask on WhatsApp
-            </button>
+              size={24}
+            />
           </div>
         </div>
       </section>
