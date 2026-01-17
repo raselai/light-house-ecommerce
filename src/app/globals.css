@@ -517,6 +517,13 @@ body {
   }
 }
 
+@media (min-width: 1024px) {
+  .hero {
+    padding: 8rem 0;
+    min-height: 70vh;
+  }
+}
+
 .hero h1 {
   font-size: 2rem; /* Mobile-first font size */
   margin-bottom: 1rem;
@@ -898,7 +905,7 @@ h1, h2, h3 {
 /* New Products Section responsive grid - MOBILE FIRST */
 .new-products-grid {
   display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important; /* Mobile: 2 columns × infinite rows */
+  grid-template-columns: repeat(2, 1fr) !important; /* Mobile: 2 columns ?? infinite rows */
   gap: 0.75rem !important; /* Smaller gap on mobile */
   max-height: none !important;
   width: 100% !important;
@@ -934,7 +941,7 @@ h1, h2, h3 {
 /* Desktop adjustments */
 @media (min-width: 768px) {
   .new-products-grid {
-    grid-template-columns: repeat(4, 1fr) !important; /* Desktop: 4 columns × infinite rows */
+    grid-template-columns: repeat(4, 1fr) !important; /* Desktop: 4 columns ?? infinite rows */
     gap: 1.5rem !important;
     padding: 0 !important; /* Remove padding on desktop */
   }
@@ -1046,7 +1053,7 @@ h1, h2, h3 {
 }
 
 .category-features li::before {
-  content: '✓';
+  content: '???';
   position: absolute;
   left: 0;
   color: #8b5cf6;
@@ -1116,4 +1123,5 @@ h1, h2, h3 {
     gap: 2rem;
   }
 }
+
 
