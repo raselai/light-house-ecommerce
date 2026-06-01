@@ -47,8 +47,28 @@ export default function ProductContent({ slug }: ProductContentProps) {
     notFound();
   }
 
+  const displayPrice = product.isOnSale && product.offerPrice ? product.offerPrice : product.price;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: product.images?.length ? product.images : product.image ? [product.image] : undefined,
+    sku: product.id,
+    category: product.category,
+    offers: {
+      '@type': 'Offer',
+      url: `https://www.relighteal.com/products/${product.id}`,
+      priceCurrency: 'AED',
+      price: displayPrice,
+      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      seller: { '@type': 'Organization', name: 'AL MESBAH ALABYAD LIGHTS TRADING L.L.C' },
+    },
+  };
+
   return (
     <div style={{ padding: '2rem 0' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container">
         <div style={{ 
           display: 'grid', 

@@ -143,9 +143,6 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/about" className="navbar-link">About</Link>
-          <Link href="/contact" className="navbar-link">Contact</Link>
-          <Link href="/faq" className="navbar-link">FAQ</Link>
           <Link href="/categories/others" className="navbar-link">Others</Link>
           
 
@@ -266,9 +263,6 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/about" className="mobile-link" onClick={handleMobileMenuClick}>About</Link>
-          <Link href="/contact" className="mobile-link" onClick={handleMobileMenuClick}>Contact</Link>
-          <Link href="/faq" className="mobile-link" onClick={handleMobileMenuClick}>FAQ</Link>
           <Link href="/categories/others" className="mobile-link" onClick={handleMobileMenuClick}>Others</Link>
           <Link href="/cart" className="mobile-link" onClick={handleMobileMenuClick} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             🛒 Cart {cartCount > 0 && <span style={{ background: '#8b5cf6', color: 'white', borderRadius: '50%', width: '20px', height: '20px', fontSize: '0.7rem', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>}
