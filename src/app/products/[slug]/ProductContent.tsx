@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import ImageGallery from '@/components/ImageGallery';
 import { fetchProducts } from '@/lib/productService';
-import WhatsAppIcon from '@/components/WhatsAppIcon';
+import { useCart } from '@/context/CartContext';
 
 type ProductContentProps = {
   slug: string;
@@ -15,6 +15,7 @@ export default function ProductContent({ slug }: ProductContentProps) {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState<any>(null);
+  const { addToCart } = useCart();
 
   // Load products on component mount
   useEffect(() => {
@@ -45,23 +46,6 @@ export default function ProductContent({ slug }: ProductContentProps) {
   if (!product) {
     notFound();
   }
-
-  const handleWhatsAppInquiry = () => {
-    const displayPrice = product.isOnSale && product.offerPrice ? product.offerPrice : product.price;
-    const message = `Hi! I'm interested in the ${product.name} priced at AED ${displayPrice.toFixed(2)}. Can you provide more details about:
-- Availability
-- Installation service
-- Warranty information
-- Delivery to my location
-
-Product Details:
-- Dimensions: ${product.dimensions}
-- Wattage: ${product.wattage}W
-- Material: ${product.material}`;
-    
-    const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
 
   return (
     <div style={{ padding: '2rem 0' }}>
@@ -171,11 +155,23 @@ Product Details:
               </div>
             </div>
             
-            {/* WhatsApp Inquiry Button */}
-            <WhatsAppIcon 
-              onClick={handleWhatsAppInquiry}
-              size={24}
-            />
+            <button
+              onClick={() => addToCart(product)}
+              style={{
+                padding: '0.875rem 2rem',
+                background: '#8b5cf6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '700',
+                fontSize: '1rem',
+                width: '100%',
+                maxWidth: '320px'
+              }}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

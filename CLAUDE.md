@@ -4,142 +4,96 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Light House E-commerce is a Next.js 14 e-commerce website for AL MESBAH ALABYAD LIGHTS TRADING L.L.C, a lighting products business. The site features product management with Firebase Firestore backend, Cloudinary image handling, and an admin dashboard.
+Light House E-commerce is a Next.js 14 e-commerce website for AL MESBAH ALABYAD LIGHTS TRADING L.L.C, a lighting products business in UAE. Products are stored in Firebase Firestore with images in Firebase Storage. There are no automated tests.
 
 ## Commands
 
-### Development
 ```bash
 npm run dev     # Start development server on localhost:3000
-npm run build   # Build for production
+npm run build   # Build for production (run this to verify changes before committing)
 npm start       # Start production server
 npm run lint    # Run ESLint
 ```
-
-### Testing Changes
-After making changes, always run `npm run build` to verify there are no build errors before committing.
 
 ## Architecture
 
 ### Tech Stack
 - **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
 - **Database**: Firebase Firestore
-- **Storage**: Firebase Storage + Cloudinary (hybrid approach)
-- **Styling**: Tailwind CSS
-- **UI Components**: Custom components in `src/components/`
-
-### Directory Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages and layouts
-│   ├── api/               # API routes
-│   │   ├── products/      # Product CRUD operations
-│   │   ├── upload/        # Image upload endpoints
-│   │   └── images/        # Image serving
-│   ├── admin/             # Admin dashboard (login at /admin)
-│   ├── categories/        # Category pages (indoor/outdoor lights)
-│   ├── products/[slug]/   # Product detail pages
-│   ├── data/              # Static data (categories, product seeds)
-│   └── layout.tsx         # Root layout with Navbar and Footer
-├── components/            # Reusable components
-├── lib/                   # Core business logic
-│   ├── firebase.ts        # Firebase initialization
-│   ├── firestore.ts       # Firestore CRUD functions
-│   ├── cloudinary.ts      # Cloudinary configuration
-│   ├── productService.ts  # Product API client
-│   └── storage.ts         # Firebase Storage operations
-├── types/                 # TypeScript interfaces
-└── hooks/                 # Custom React hooks
-```
+- **Storage**: Firebase Storage (primary); Cloudinary SDK installed but no longer the primary storage
+- **Styling**: Tailwind CSS + inline styles (mixed pattern throughout)
 
 ### Data Flow
 
-**Product Management Architecture:**
-1. Admin creates/edits product via forms in `src/components/AddProductForm.tsx` or `EditProductForm.tsx`
-2. Images uploaded through `src/components/ImageUpload.tsx` to Firebase Storage
-3. Product data with image URLs saved to Firestore via `/api/products` route
-4. Frontend fetches products using `productService.ts` client functions
-5. Products displayed via `ProductCard` components
+1. Admin submits form → `AddProductForm`/`EditProductForm` → `productService.ts` → `/api/products` → `lib/firestore.ts` → Firestore
+2. Images uploaded via `ImageUpload.tsx` → `/api/upload` → `lib/storage.ts` → Firebase Storage (path: `products/{category}/{subcategory}/{timestamp}_{filename}`)
+3. Frontend fetches via `productService.ts` → `/api/products` → Firestore → displayed with `getProductImagePath()` from `lib/utils.ts`
 
-**Multiple API Route Variants:**
-- `/api/products` - Primary Firestore-based routes (USE THIS)
-- `/api/products-hybrid` - Hybrid implementation (legacy)
-- `/api/products-new` - Alternative implementation (legacy)
-- `/api/products-vercel` - Vercel-specific (legacy)
+### API Routes
 
-When working with products, always use `/api/products` routes.
+Only use `/api/products` (Firestore-backed). The other routes are legacy and unused:
+- `/api/products-hybrid`, `/api/products-new`, `/api/products-vercel` — do not use
 
-### Key Patterns
+### Product Type — Dual Fields
 
-**Product Interface:**
-The main Product type (`src/types/product.ts`) has dual fields for backward compatibility:
-- `image` vs `mainImage` - Single product image
-- `images` vs `galleryImages` - Multiple product images
-- `featured` vs `isFeatured` - Featured product flag
-- `seasonal` vs `isOnSale` - Sale/seasonal flag
-- `offerPrice` - Sale price when `isOnSale: true`
+`src/types/product.ts` and `src/lib/firestore.ts` define overlapping fields for backward compatibility. When the POST route writes to Firestore it maps: `isFeatured` → `featured`, `isOnSale` → `seasonal`. Firestore queries in `firestore.ts` filter on `featured` and `seasonal` (not `isFeatured`/`isOnSale`). Always populate both variants:
 
-Always populate both variants when creating/updating products.
+| Frontend/API field | Firestore field |
+|--------------------|-----------------|
+| `isFeatured`       | `featured`      |
+| `isOnSale`         | `seasonal`      |
+| `images`           | `images`        |
+| `galleryImages`    | `galleryImages` |
 
-**Image Handling:**
-- Primary images stored in Firebase Storage
-- Cloudinary used for optimized image delivery (see `src/lib/cloudinary.ts`)
-- Images reference pattern: `firebasestorage.googleapis.com/...`
-- Upload via `/api/upload` or `/api/upload-image` endpoints
+### Image Resolution Order
 
-**Category System:**
-Categories are hierarchical:
-- **Main categories**: indoor-lights, outdoor-lights, led-strip, spotlight
-- **Subcategories**: chandeliers, ceiling-lights, wall-lamps, pendant-lights, garden-lights, street-lamps, flood-lights, wall-fixtures
+`getProductImagePath()` in `src/lib/utils.ts` resolves image URLs in this priority:
+1. `product.image` (any URL — Firebase Storage or Cloudinary)
+2. `product.mainImage`
+3. `product.images[0]`
+4. `product.galleryImages[0]`
+5. `product.imagePath` → `/images/products/{path}`
+6. Category fallback from hardcoded map → `/images/categories/...`
 
-Categories defined in `src/app/data/categories.ts`. Product filtering uses both `category` and `subcategory` fields.
+`next.config.js` allows only `firebasestorage.googleapis.com` as an image domain, but `unoptimized: true` means Next.js Image does no server-side optimization.
 
-### Firebase Configuration
+### Category System
 
-Firebase credentials are hardcoded in `src/lib/firebase.ts` (production config). When adding environment variable support, move these to `.env.local`:
-```
-NEXT_PUBLIC_FIREBASE_API_KEY=...
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
-```
+Categories have a `type` field (`'indoor'` | `'outdoor'`) defined in `src/app/data/categories.ts`. The homepage also filters for an `'others'` tab by checking `product.category.toLowerCase().includes('others')` — this is not in `categories.ts` and must be set manually on products.
 
-**Warning**: Update admin credentials (`admin/password123`) before production deployment.
+Standard subcategories (used for Firestore queries): `chandeliers`, `ceiling-lights`, `wall-lamps`, `pendant-lights`, `garden-lights`, `street-lamps`, `flood-lights`, `wall-fixtures`.
 
-### State Management
+### Admin Authentication
 
-No global state library - uses React local state and Server Components where possible:
-- Client components marked with `'use client'` directive
-- Server components fetch data directly from Firestore
-- Admin forms use controlled component pattern with local state
+Auth is localStorage-only (`adminAuth: 'true'`), implemented in `src/hooks/useAuth.ts`. Credentials are hardcoded:
+- Username: `admin`
+- Password: `lighting2024`
 
-### Styling Conventions
+The "Inquiries" tab in the admin panel shows hardcoded mock data — there is no real inquiry tracking system.
 
-- Tailwind utility classes for styling
-- Global styles in `src/app/globals.css`
-- Footer and layout styles defined in layout component
-- Custom CSS classes like `.footer`, `.container` in globals.css
-- Responsive design using Tailwind breakpoints
+### Firestore Timestamp Gotcha
 
-### Known Issues & Workarounds
+`getAllProducts()` in `firestore.ts` avoids `orderBy` in the Firestore query to prevent errors on documents missing `createdAt`. It fetches all docs then sorts in JavaScript, checking whether `createdAt` is a Firestore `Timestamp` object (`{ seconds, nanoseconds }`) or a regular Date before comparing.
 
-1. **Firestore Timestamp Handling**: Firestore returns Timestamp objects for dates. The `getAllProducts()` function in `firestore.ts` manually converts these to Date objects for sorting (lines 92-119).
+## Key Files
 
-2. **Image URL Format**: Some products use Firebase Storage URLs, others may use Cloudinary. The ImageGallery component handles both formats.
-
-3. **Build Configuration**: `next.config.js` uses `output: 'standalone'` and `unoptimized: true` for images to support Hostinger deployment.
+| File | Purpose |
+|------|---------|
+| `src/lib/firestore.ts` | Firestore CRUD — defines its own `Product` interface (different from `src/types/product.ts`) |
+| `src/lib/productService.ts` | Client-side API wrapper used by all frontend components |
+| `src/lib/utils.ts` | `getProductImagePath()` image resolution + `cn()` Tailwind helper |
+| `src/lib/storage.ts` | Firebase Storage upload/delete helpers |
+| `src/hooks/useAuth.ts` | Admin auth (localStorage) with hardcoded credentials |
+| `src/app/data/categories.ts` | Static category list with name, image, href, type |
 
 ## Deployment
 
-See `DEPLOYMENT.md` for full Hostinger deployment instructions. Key points:
-- Node.js version: 18.x or 20.x
-- Build command: `npm run build`
-- Start command: `npm start`
-- Admin access: `/admin` with credentials `admin/password123` (CHANGE IN PRODUCTION)
+Hosted on Hostinger. `next.config.js` uses `output: 'standalone'`. Node.js 18.x or 20.x required. See `DEPLOYMENT.md` for full instructions.
 
 ## Important Notes
 
-- **Path Aliases**: Use `@/` prefix for imports from `src/` directory (configured in `tsconfig.json`)
-- **Firebase Storage vs Cloudinary**: Project migrated from Cloudinary to Firebase Storage but retains Cloudinary utilities in `src/lib/cloudinary.ts` for potential optimization
-- **Migration Scripts**: `scripts/` directory contains one-time migration scripts for moving products between storage systems
-- **WhatsApp Integration**: Contact buttons link to WhatsApp for customer inquiries (see `src/components/WhatsAppIcon.tsx`)
+- **Path aliases**: Use `@/` for imports from `src/` (configured in `tsconfig.json`)
+- **No test suite**: There are no unit or integration tests
+- **`src/lib/staticData.ts`**: Contains static fallback product/category data; not used in the main product flow
+- **WhatsApp number**: `971506970154` — hardcoded in multiple places including `src/app/page.tsx`
+- **Legacy scripts**: `scripts/` contains one-time migration scripts; do not re-run them

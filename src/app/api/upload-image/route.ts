@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadImage, generateProductImagePath } from '@/lib/storage';
+import { checkAdminAuth, unauthorizedResponse } from '@/lib/adminAuth';
 
 export async function POST(request: NextRequest) {
+  if (!checkAdminAuth(request)) return unauthorizedResponse();
   try {
     console.log('API: Uploading image to Firebase Storage');
     
@@ -12,19 +14,21 @@ export async function POST(request: NextRequest) {
     const subcategory = formData.get('subcategory') as string;
     
     if (!file) {
-      return NextResponse.json({ 
-        error: 'No image file provided' 
-      }, { status: 400 });
+      return NextResponse.json({ error: 'No image file provided' }, { status: 400 });
     }
-    
+
+    const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+    const ext = '.' + (file.name.split('.').pop() ?? '').toLowerCase();
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      return NextResponse.json({ error: 'Invalid file type. Allowed: jpg, jpeg, png, webp, gif' }, { status: 400 });
+    }
+
     if (!productName) {
-      return NextResponse.json({ 
-        error: 'Product name is required' 
-      }, { status: 400 });
+      return NextResponse.json({ error: 'Product name is required' }, { status: 400 });
     }
-    
+
     // Generate path for Firebase Storage
-    const fileName = `${productName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.${file.name.split('.').pop()}`;
+    const fileName = `${productName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}${ext}`;
     const path = generateProductImagePath(category || 'Others', subcategory || 'General', fileName);
     
     // Upload to Firebase Storage

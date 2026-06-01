@@ -9,23 +9,37 @@ export function useAuth() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is authenticated
-    const authToken = localStorage.getItem('adminAuth');
-    setIsAuthenticated(authToken === 'true');
-    setLoading(false);
+    // Check auth status via a lightweight API call
+    fetch('/api/admin/check', { method: 'GET' })
+      .then(res => {
+        setIsAuthenticated(res.ok);
+        setLoading(false);
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+        setLoading(false);
+      });
   }, []);
 
-  const login = (username: string, password: string) => {
-    if (username === 'admin' && password === 'lighting2024') {
-      localStorage.setItem('adminAuth', 'true');
-      setIsAuthenticated(true);
-      return true;
+  const login = async (username: string, password: string): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        setIsAuthenticated(true);
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
     }
-    return false;
   };
 
-  const logout = () => {
-    localStorage.removeItem('adminAuth');
+  const logout = async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
     setIsAuthenticated(false);
     router.push('/admin/login');
   };
@@ -38,11 +52,5 @@ export function useAuth() {
     return true;
   };
 
-  return {
-    isAuthenticated,
-    loading,
-    login,
-    logout,
-    requireAuth
-  };
-} 
+  return { isAuthenticated, loading, login, logout, requireAuth };
+}

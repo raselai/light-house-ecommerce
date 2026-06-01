@@ -6,19 +6,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/types/product';
 import { getProductImagePath } from '@/lib/utils';
-import WhatsAppIcon from '@/components/WhatsAppIcon';
+import { useCart } from '@/context/CartContext';
 
 type ProductCardProps = {
   product: Product;
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const handleWhatsAppInquiry = () => {
-    const displayPrice = product.isOnSale && product.offerPrice ? product.offerPrice : product.price;
-    const message = `Hi! I'm interested in the ${product.name} priced at AED ${displayPrice.toFixed(2)}. Can you provide more details?`;
-    const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
+  const { addToCart } = useCart();
 
   const imagePath = getProductImagePath(product, product.category);
 
@@ -121,10 +116,22 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
         </div>
-        <WhatsAppIcon 
-          onClick={handleWhatsAppInquiry}
-          size={20}
-        />
+        <button
+          onClick={() => addToCart(product)}
+          style={{
+            padding: '0.5rem 1rem',
+            background: '#8b5cf6',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontWeight: '600',
+            fontSize: '0.85rem',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

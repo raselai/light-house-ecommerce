@@ -8,6 +8,8 @@ import DashboardOverview from '@/components/DashboardOverview';
 import { fetchProducts, addProduct, updateProduct, deleteProduct } from '@/lib/productService';
 import { useAuth } from '@/hooks/useAuth';
 import { Product } from '@/types/product';
+import { getAllOrders } from '@/lib/firestore';
+import { Order } from '@/types/cart';
 
 export default function AdminPanel() {
   const { isAuthenticated, loading: authLoading, logout } = useAuth();
@@ -18,6 +20,8 @@ export default function AdminPanel() {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [adminProducts, setAdminProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
 
   // Mock data for admin panel
   const inquiries = [
@@ -61,6 +65,18 @@ export default function AdminPanel() {
       console.error('Error loading products:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadOrders = async () => {
+    setOrdersLoading(true);
+    try {
+      const fetchedOrders = await getAllOrders();
+      setOrders(fetchedOrders);
+    } catch (error) {
+      console.error('Error loading orders:', error);
+    } finally {
+      setOrdersLoading(false);
     }
   };
 
@@ -228,6 +244,20 @@ export default function AdminPanel() {
             }}
           >
             Inquiries
+          </button>
+          <button
+            onClick={() => { setActiveTab('orders'); loadOrders(); }}
+            style={{
+              padding: '1rem 2rem',
+              background: activeTab === 'orders' ? '#8b5cf6' : 'transparent',
+              color: activeTab === 'orders' ? 'white' : '#374151',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              borderBottom: activeTab === 'orders' ? '3px solid #8b5cf6' : 'none'
+            }}
+          >
+            Orders
           </button>
         </div>
 
@@ -431,6 +461,66 @@ export default function AdminPanel() {
           </div>
         )}
       </div>
+
+      {/* Orders Tab */}
+      {activeTab === 'orders' && (
+        <div>
+          <h2 style={{ marginBottom: '2rem' }}>Customer Orders</h2>
+          {ordersLoading ? (
+            <div style={{ textAlign: 'center', padding: '2rem' }}><p>Loading orders...</p></div>
+          ) : orders.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '3rem', color: '#6b7280' }}>
+              <p>No orders yet.</p>
+            </div>
+          ) : (
+            <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '700px' }}>
+                  <thead>
+                    <tr style={{ background: '#f9fafb' }}>
+                      {['Date', 'Customer', 'Phone', 'Emirate', 'Address', 'Items', 'Total', 'Status'].map(h => (
+                        <th key={h} style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #e5e7eb', fontSize: '0.9rem' }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => {
+                      const date = order.createdAt
+                        ? new Date((order.createdAt as any).seconds ? (order.createdAt as any).seconds * 1000 : order.createdAt).toLocaleDateString()
+                        : '—';
+                      return (
+                        <tr key={order.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                          <td style={{ padding: '1rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>{date}</td>
+                          <td style={{ padding: '1rem', fontWeight: '600' }}>{order.customerName}</td>
+                          <td style={{ padding: '1rem', fontSize: '0.9rem' }}>{order.customerPhone}</td>
+                          <td style={{ padding: '1rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>{order.customerState || '—'}</td>
+                          <td style={{ padding: '1rem', fontSize: '0.85rem', maxWidth: '180px' }}>{order.customerAddress}</td>
+                          <td style={{ padding: '1rem', fontSize: '0.85rem', maxWidth: '200px' }}>
+                            {order.items.map(i => `${i.name} ×${i.quantity}`).join(', ')}
+                          </td>
+                          <td style={{ padding: '1rem', fontWeight: '600', whiteSpace: 'nowrap' }}>AED {order.totalAmount.toLocaleString()}</td>
+                          <td style={{ padding: '1rem' }}>
+                            <span style={{
+                              padding: '0.25rem 0.75rem',
+                              borderRadius: '20px',
+                              fontSize: '0.8rem',
+                              fontWeight: 'bold',
+                              background: order.status === 'completed' ? '#dcfce7' : order.status === 'cancelled' ? '#fef2f2' : '#fef3c7',
+                              color: order.status === 'completed' ? '#059669' : order.status === 'cancelled' ? '#dc2626' : '#d97706'
+                            }}>
+                              {order.status}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Add Product Form */}
       {showAddForm && (

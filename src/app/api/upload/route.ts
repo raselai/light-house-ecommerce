@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadMultipleImages, generateProductImagePath } from '@/lib/storage';
+import { checkAdminAuth, unauthorizedResponse } from '@/lib/adminAuth';
 
 export async function POST(request: NextRequest) {
+  if (!checkAdminAuth(request)) return unauthorizedResponse();
   try {
     console.log('Upload API called - uploading to Firebase Storage');
     const formData = await request.formData();
@@ -24,16 +26,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Category and subcategory are required' }, { status: 400 });
     }
 
-    // Filter valid image files
+    const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
     const validFiles = files.filter(file => {
-      if (!file.type.startsWith('image/')) {
-        console.log(`Skipping non-image file: ${file.name}`);
-        return false;
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        console.log(`Skipping large file: ${file.name} (${file.size} bytes)`);
-        return false;
-      }
+      const ext = '.' + (file.name.split('.').pop() ?? '').toLowerCase();
+      if (!ALLOWED_EXTENSIONS.includes(ext)) return false;
+      if (file.size > 5 * 1024 * 1024) return false;
       return true;
     });
 

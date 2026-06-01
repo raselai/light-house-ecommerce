@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchProducts } from '@/lib/productService';
 import { getProductImagePath } from '@/lib/utils';
-import WhatsAppIcon from '@/components/WhatsAppIcon';
+import { useCart } from '@/context/CartContext';
 
 export default function Home() {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
@@ -13,6 +13,7 @@ export default function Home() {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'all' | 'indoor' | 'outdoor' | 'others'>('all');
+  const { addToCart } = useCart();
 
   const heroImages = [
     '/images/hero/hero-1.jpg',
@@ -276,29 +277,36 @@ export default function Home() {
                       {product.category}
                     </p>
               </Link>
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center' 
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                   }}>
                     <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#8b5cf6' }}>
                       AED {product.price.toLocaleString()}
                     </span>
-                    <WhatsAppIcon 
-                      onClick={() => {
-                        const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toLocaleString()}. Can you provide more details?`;
-                        const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
-                        window.open(whatsappUrl, '_blank');
+                    <button
+                      onClick={() => addToCart(product)}
+                      style={{
+                        padding: '0.4rem 0.875rem',
+                        background: '#8b5cf6',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: '600',
+                        fontSize: '0.8rem'
                       }}
-                      size={18}
-                    />
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               ))
             ) : (
-              <div style={{ 
-                gridColumn: '1 / -1', 
-                textAlign: 'center', 
+              <div style={{
+                gridColumn: '1 / -1',
+                textAlign: 'center',
                 padding: '2rem',
                 color: '#6b7280'
               }}>
@@ -353,22 +361,29 @@ export default function Home() {
                     {product.description}
                   </p>
                 </Link>
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'center' 
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
                 }}>
                   <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
                     AED {product.price.toLocaleString()}
                   </span>
-                  <WhatsAppIcon 
-                    onClick={() => {
-                      const message = `Hi! I'm interested in the ${product.name} priced at AED ${product.price.toLocaleString()}. Can you provide more details?`;
-                      const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
-                      window.open(whatsappUrl, '_blank');
+                  <button
+                    onClick={() => addToCart(product)}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      background: '#8b5cf6',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      fontSize: '0.85rem'
                     }}
-                    size={20}
-                  />
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))
@@ -465,14 +480,21 @@ export default function Home() {
                       AED {(product.price * 1.2).toLocaleString()}
                     </span>
                   </div>
-                  <WhatsAppIcon 
-                    onClick={() => {
-                      const message = `Hi! I'm interested in the ${product.name} on sale for AED ${product.price.toLocaleString()}. Can you provide more details?`;
-                      const whatsappUrl = `https://wa.me/971506970154?text=${encodeURIComponent(message)}`;
-                      window.open(whatsappUrl, '_blank');
+                  <button
+                    onClick={() => addToCart(product)}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      background: '#8b5cf6',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      fontSize: '0.85rem'
                     }}
-                    size={20}
-                  />
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))

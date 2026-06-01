@@ -1,16 +1,17 @@
-import { 
-  collection, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  doc, 
-  getDocs, 
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDocs,
   getDoc,
   query,
   where,
   orderBy
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { Order } from "@/types/cart";
 
 // Product interface
 export interface Product {
@@ -80,45 +81,20 @@ export const deleteProduct = async (id: string) => {
 // Get all products
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
-    // Fetch all products first (without ordering to avoid missing field errors)
     const querySnapshot = await getDocs(collection(db, "products"));
     const products = querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     })) as Product[];
-    
-    // Sort by creation date (newest first) in JavaScript
-    console.log(`Firestore: Found ${products.length} products, sorting by creation date...`);
+
     const sortedProducts = products.sort((a, b) => {
-      // Handle different createdAt field types (Firestore Timestamp or Date)
-      let aDate: Date;
-      let bDate: Date;
-      
-      if (!a.createdAt) {
-        aDate = new Date(0);
-      } else if (typeof a.createdAt === 'object' && 'seconds' in a.createdAt) {
-        // Firestore Timestamp object
-        aDate = new Date((a.createdAt as any).seconds * 1000);
-      } else {
-        // Regular Date object or string
-        aDate = new Date(a.createdAt as any);
-      }
-      
-      if (!b.createdAt) {
-        bDate = new Date(0);
-      } else if (typeof b.createdAt === 'object' && 'seconds' in b.createdAt) {
-        // Firestore Timestamp object
-        bDate = new Date((b.createdAt as any).seconds * 1000);
-      } else {
-        // Regular Date object or string
-        bDate = new Date(b.createdAt as any);
-      }
-      
-      console.log(`Firestore: Comparing ${a.name} (${aDate.toISOString()}) vs ${b.name} (${bDate.toISOString()})`);
-      return bDate.getTime() - aDate.getTime(); // Descending order (newest first)
+      const toMs = (d: any) => {
+        if (!d) return 0;
+        if (typeof d === 'object' && 'seconds' in d) return d.seconds * 1000;
+        return new Date(d).getTime();
+      };
+      return toMs(b.createdAt) - toMs(a.createdAt);
     });
-    
-    console.log(`Firestore: Sorted products - first 3:`, sortedProducts.slice(0, 3).map(p => ({ name: p.name, createdAt: p.createdAt })));
     return sortedProducts;
   } catch (error) {
     console.error("Error getting products: ", error);
@@ -196,6 +172,39 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
     })) as Product[];
   } catch (error) {
     console.error("Error getting featured products: ", error);
+    throw error;
+  }
+};
+
+// Add a new order
+export const addOrder = async (order: Omit<Order, 'id'>): Promise<Order> => {
+  try {
+    const docRef = await addDoc(collection(db, "orders"), {
+      ...order,
+      createdAt: new Date(),
+    });
+    return { id: docRef.id, ...order };
+  } catch (error) {
+    console.error("Error adding order: ", error);
+    throw error;
+  }
+};
+
+// Get all orders
+export const getAllOrders = async (): Promise<Order[]> => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "orders"));
+    const orders = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as Order[];
+    return orders.sort((a, b) => {
+      const aDate = a.createdAt ? new Date((a.createdAt as any).seconds ? (a.createdAt as any).seconds * 1000 : a.createdAt).getTime() : 0;
+      const bDate = b.createdAt ? new Date((b.createdAt as any).seconds ? (b.createdAt as any).seconds * 1000 : b.createdAt).getTime() : 0;
+      return bDate - aDate;
+    });
+  } catch (error) {
+    console.error("Error getting orders: ", error);
     throw error;
   }
 };

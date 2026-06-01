@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useCart } from '@/context/CartContext';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function Navbar() {
   const [isOutdoorDropdownOpen, setIsOutdoorDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const { cartCount } = useCart();
 
   const indoorCategories = [
     'Hanging lights',
@@ -151,15 +153,44 @@ export default function Navbar() {
 
         {/* Search Bar */}
         <form onSubmit={handleSearch} className="navbar-search">
-          <input 
-            type="text" 
-            placeholder="Search products..." 
+          <input
+            type="text"
+            placeholder="Search products..."
             className="search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button type="submit" className="search-btn">🔍</button>
         </form>
+
+        {/* Cart Icon */}
+        <Link href="/cart" style={{ position: 'relative', display: 'flex', alignItems: 'center', marginLeft: '0.75rem' }}>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+          </svg>
+          {cartCount > 0 && (
+            <span style={{
+              position: 'absolute',
+              top: '-8px',
+              right: '-8px',
+              background: '#8b5cf6',
+              color: 'white',
+              borderRadius: '50%',
+              width: '18px',
+              height: '18px',
+              fontSize: '0.7rem',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              lineHeight: 1
+            }}>
+              {cartCount > 99 ? '99+' : cartCount}
+            </span>
+          )}
+        </Link>
 
         {/* Mobile Menu Button */}
         <button 
@@ -239,8 +270,9 @@ export default function Navbar() {
           <Link href="/contact" className="mobile-link" onClick={handleMobileMenuClick}>Contact</Link>
           <Link href="/faq" className="mobile-link" onClick={handleMobileMenuClick}>FAQ</Link>
           <Link href="/categories/others" className="mobile-link" onClick={handleMobileMenuClick}>Others</Link>
-          
-
+          <Link href="/cart" className="mobile-link" onClick={handleMobileMenuClick} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            🛒 Cart {cartCount > 0 && <span style={{ background: '#8b5cf6', color: 'white', borderRadius: '50%', width: '20px', height: '20px', fontSize: '0.7rem', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>}
+          </Link>
         </div>
       )}
     </nav>
