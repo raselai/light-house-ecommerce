@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'Other Lighting Products | Relight EAL',
     description: 'Unique and specialty lighting solutions. Custom designs and specialist fixtures for any space in UAE.',
   },
-  alternates: { canonical: 'https://www.relighteal.com/others' },
+  alternates: { canonical: 'https://www.sklighthouse.com/others' },
 };
 
 export default function OthersLayout({ children }: { children: React.ReactNode }) {

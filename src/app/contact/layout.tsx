@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'Contact Us | Relight EAL',
     description: 'Visit us at Dragon Mart, Dubai or contact us via WhatsApp. We are here to help with all your lighting needs.',
   },
-  alternates: { canonical: 'https://www.relighteal.com/contact' },
+  alternates: { canonical: 'https://www.sklighthouse.com/contact' },
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

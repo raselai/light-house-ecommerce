@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllProducts } from '@/lib/firestore';
 
-const BASE_URL = 'https://www.relighteal.com';
+const BASE_URL = 'https://www.sklighthouse.com';
 
 const STATIC_PAGES: MetadataRoute.Sitemap = [
   { url: BASE_URL,                         lastModified: new Date(), changeFrequency: 'daily',   priority: 1.0 },

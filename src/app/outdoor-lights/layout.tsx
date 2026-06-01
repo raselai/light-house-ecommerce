@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'Outdoor Lights | Relight EAL',
     description: 'Garden lights, floodlights, solar lights and more. Weatherproof outdoor lighting built for UAE conditions.',
   },
-  alternates: { canonical: 'https://www.relighteal.com/outdoor-lights' },
+  alternates: { canonical: 'https://www.sklighthouse.com/outdoor-lights' },
 };
 
 export default function OutdoorLightsLayout({ children }: { children: React.ReactNode }) {

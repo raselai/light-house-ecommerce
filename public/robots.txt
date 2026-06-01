@@ -4,4 +4,4 @@ Disallow: /admin
 Disallow: /admin/login
 Disallow: /api/
 
-Sitemap: https://www.relighteal.com/sitemap.xml
+Sitemap: https://www.sklighthouse.com/sitemap.xml

@@ -22,7 +22,7 @@ export async function generateMetadata(
         description,
         images: image ? [{ url: image, alt: product.name }] : undefined,
       },
-      alternates: { canonical: `https://www.relighteal.com/products/${slug}` },
+      alternates: { canonical: `https://www.sklighthouse.com/products/${slug}` },
     };
   } catch {
     return { title: 'Product' };

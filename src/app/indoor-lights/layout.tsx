@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'Indoor Lights | Relight EAL',
     description: 'Chandeliers, pendant lights, spotlights, LED strips and more. Premium indoor lighting for UAE homes and offices.',
   },
-  alternates: { canonical: 'https://www.relighteal.com/indoor-lights' },
+  alternates: { canonical: 'https://www.sklighthouse.com/indoor-lights' },
 };
 
 export default function IndoorLightsLayout({ children }: { children: React.ReactNode }) {

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'FAQ | Relight EAL',
     description: 'Answers to common questions about our lighting products, installation services, warranty, and delivery across UAE.',
   },
-  alternates: { canonical: 'https://www.relighteal.com/faq' },
+  alternates: { canonical: 'https://www.sklighthouse.com/faq' },
 };
 
 export default function FaqLayout({ children }: { children: React.ReactNode }) {

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'About Us | Relight EAL',
     description: 'Your trusted lighting partner in UAE. Premium LED lights, chandeliers, and modern fixtures at Dragon Mart, Dubai.',
   },
-  alternates: { canonical: 'https://www.relighteal.com/about' },
+  alternates: { canonical: 'https://www.sklighthouse.com/about' },
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

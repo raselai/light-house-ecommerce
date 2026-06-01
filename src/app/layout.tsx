@@ -11,7 +11,7 @@ const poppins = Poppins({
   variable: '--font-poppins'
 });
 
-const SITE_URL = 'https://www.relighteal.com';
+const SITE_URL = 'https://www.sklighthouse.com';
 const SITE_NAME = 'AL MESBAH ALABYAD LIGHTS TRADING L.L.C';
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function RootLayout({
           '@type': 'LightingStore',
           name: 'AL MESBAH ALABYAD LIGHTS TRADING L.L.C',
           alternateName: 'Relight EAL',
-          url: 'https://www.relighteal.com',
+          url: 'https://www.sklighthouse.com',
           telephone: '+971506970154',
           email: 'kingon503@gmail.com',
           address: { '@type': 'PostalAddress', streetAddress: 'Dragon Mart, Near EB2 Gate', addressLocality: 'International City', addressRegion: 'Dubai', addressCountry: 'AE' },

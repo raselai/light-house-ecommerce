@@ -58,7 +58,7 @@ export default function ProductContent({ slug }: ProductContentProps) {
     category: product.category,
     offers: {
       '@type': 'Offer',
-      url: `https://www.relighteal.com/products/${product.id}`,
+      url: `https://www.sklighthouse.com/products/${product.id}`,
       priceCurrency: 'AED',
       price: displayPrice,
       availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',

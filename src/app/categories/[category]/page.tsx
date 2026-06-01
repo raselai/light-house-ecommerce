@@ -36,7 +36,7 @@ export async function generateMetadata(
       title: `${name} | Relight EAL`,
       description,
     },
-    alternates: { canonical: `https://www.relighteal.com/categories/${slug}` },
+    alternates: { canonical: `https://www.sklighthouse.com/categories/${slug}` },
   };
 }
 
