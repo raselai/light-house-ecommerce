@@ -98,7 +98,7 @@ Message: ${formData.message || 'I would like more information about your lightin
                   <h3>Address</h3>
                   <p className="contact-value">
                     International City, Dragon Mart<br />
-                    Near EB2 Gate, Dubai<br />
+                    EBJ-06, Near EB2 Gate, Dubai<br />
                     United Arab Emirates
                   </p>
                 </div>

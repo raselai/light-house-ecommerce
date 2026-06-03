@@ -66,7 +66,7 @@ export default function RootLayout({
           url: 'https://www.sklighthouse.com',
           telephone: '+971506970154',
           email: 'kingon503@gmail.com',
-          address: { '@type': 'PostalAddress', streetAddress: 'Dragon Mart, Near EB2 Gate', addressLocality: 'International City', addressRegion: 'Dubai', addressCountry: 'AE' },
+          address: { '@type': 'PostalAddress', streetAddress: 'Dragon Mart, EBJ-06, Near EB2 Gate', addressLocality: 'International City', addressRegion: 'Dubai', addressCountry: 'AE' },
           geo: { '@type': 'GeoCoordinates', latitude: 25.1688, longitude: 55.4130 },
           openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '10:00', closes: '22:00' }],
           priceRange: 'AED',
@@ -89,7 +89,7 @@ export default function RootLayout({
                   <h3>AL MESBAH ALABYAD LIGHTS TRADING L.L.C</h3>
                   <p>Premium lighting solutions for your home and business. Quality LED lights and modern fixtures.</p>
                   <div className="footer-contact">
-                    <p>📍 International City, Dragon Mart, Near EB2 Gate</p>
+                    <p>📍 International City, Dragon Mart, EBJ-06, Near EB2 Gate</p>
                     <p>📧 kingon503@gmail.com</p>
                     <p>📞 +971 50 697 0154</p>
                   </div>
@@ -131,7 +131,7 @@ export default function RootLayout({
             </div>
             
             <div className="footer-bottom">
-              <p>&copy; 2024 AL MESBAH ALABYAD LIGHTS TRADING L.L.C. All rights reserved.</p>
+              <p>&copy; 2026 AL MESBAH ALABYAD LIGHTS TRADING L.L.C. All rights reserved.</p>
             </div>
           </div>
         </footer>
