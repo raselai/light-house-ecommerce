@@ -13,7 +13,7 @@ export default function AboutPage() {
       <section className="about-hero">
         <div className="container">
           <div className="about-hero-content">
-            <h1>About Relight EAL</h1>
+            <h1>About SK Light House</h1>
             <p>
               Illuminating UAE with premium lighting solutions since 2010. 
               We bring together quality, design, and innovation to light up your world.
@@ -29,7 +29,7 @@ export default function AboutPage() {
             <div className="story-content">
               <h2>Our Story</h2>
               <p>
-                Founded in 2010, Relight EAL began as a small lighting boutique in Dubai with a simple mission: 
+                Founded in 2010, SK Light House began as a small lighting boutique in Dubai with a simple mission: 
                 to bring premium, energy-efficient lighting solutions to homes and businesses across the UAE.
               </p>
               <p>
@@ -55,7 +55,7 @@ export default function AboutPage() {
       <section className="about-values">
         <div className="container">
           <div className="values-header">
-            <h2>Why Choose Relight EAL?</h2>
+            <h2>Why Choose SK Light House?</h2>
             <p>We're committed to excellence in every aspect of our service</p>
           </div>
 

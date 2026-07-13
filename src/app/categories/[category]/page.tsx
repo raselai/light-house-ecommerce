@@ -28,12 +28,12 @@ export async function generateMetadata(
   const slug = decodeURIComponent(category);
   const meta = CATEGORY_META[slug];
   const name = meta?.name ?? slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  const description = meta?.description ?? `Shop our ${name} collection at Relight EAL. Premium lighting products available in UAE.`;
+  const description = meta?.description ?? `Shop our ${name} collection at SK Light House. Premium lighting products available in UAE.`;
   return {
     title: name,
     description,
     openGraph: {
-      title: `${name} | Relight EAL`,
+      title: `${name} | SK Light House`,
       description,
     },
     alternates: { canonical: `https://www.sklighthouse.com/categories/${slug}` },

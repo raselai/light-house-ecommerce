@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'Outdoor Lights',
   description: 'Explore our outdoor lighting collection — garden lights, floodlights, solar lights, wall fixtures, and street lamps. Weatherproof and built for UAE conditions.',
   openGraph: {
-    title: 'Outdoor Lights | Relight EAL',
+    title: 'Outdoor Lights | SK Light House',
     description: 'Garden lights, floodlights, solar lights and more. Weatherproof outdoor lighting built for UAE conditions.',
   },
   alternates: { canonical: 'https://www.sklighthouse.com/outdoor-lights' },
