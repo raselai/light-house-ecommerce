@@ -4,25 +4,27 @@ import { getAllProducts } from '@/lib/firestore';
 const BASE_URL = 'https://www.sklighthouse.com';
 
 const STATIC_PAGES: MetadataRoute.Sitemap = [
-  { url: BASE_URL,                         lastModified: new Date(), changeFrequency: 'daily',   priority: 1.0 },
-  { url: `${BASE_URL}/about`,              lastModified: new Date(), changeFrequency: 'monthly',  priority: 0.5 },
-  { url: `${BASE_URL}/contact`,            lastModified: new Date(), changeFrequency: 'monthly',  priority: 0.6 },
-  { url: `${BASE_URL}/faq`,               lastModified: new Date(), changeFrequency: 'monthly',  priority: 0.5 },
-  { url: `${BASE_URL}/categories/hanging-lights`,    lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${BASE_URL}/categories/spotlight`,         lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${BASE_URL}/categories/pendant-lights`,    lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${BASE_URL}/categories/magnetic-light`,    lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/led-tube`,          lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/office-lights`,     lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/led-strip`,         lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${BASE_URL}/categories/aluminum-profile`,  lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/mirror-light`,      lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/led-track-lights`,  lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/wall`,              lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/garden-light`,      lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/floodlight`,        lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/solar-light`,       lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${BASE_URL}/categories/others`,            lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+  { url: BASE_URL,                         changeFrequency: 'daily',   priority: 1.0 },
+  { url: `${BASE_URL}/about`,              changeFrequency: 'monthly',  priority: 0.5 },
+  { url: `${BASE_URL}/contact`,            changeFrequency: 'monthly',  priority: 0.6 },
+  { url: `${BASE_URL}/faq`,               changeFrequency: 'monthly',  priority: 0.5 },
+  { url: `${BASE_URL}/shipping`,          changeFrequency: 'monthly',  priority: 0.4 },
+  { url: `${BASE_URL}/returns`,           changeFrequency: 'monthly',  priority: 0.4 },
+  { url: `${BASE_URL}/categories/hanging-lights`,    changeFrequency: 'weekly', priority: 0.8 },
+  { url: `${BASE_URL}/categories/spotlight`,         changeFrequency: 'weekly', priority: 0.8 },
+  { url: `${BASE_URL}/categories/pendant-lights`,    changeFrequency: 'weekly', priority: 0.8 },
+  { url: `${BASE_URL}/categories/magnetic-light`,    changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/led-tube`,          changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/office-lights`,     changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/led-strip`,         changeFrequency: 'weekly', priority: 0.8 },
+  { url: `${BASE_URL}/categories/aluminum-profile`,  changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/mirror-light`,      changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/led-track-lights`,  changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/wall`,              changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/garden-light`,      changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/floodlight`,        changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/solar-light`,       changeFrequency: 'weekly', priority: 0.7 },
+  { url: `${BASE_URL}/categories/others`,            changeFrequency: 'weekly', priority: 0.6 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -31,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const products = await getAllProducts();
     productPages = products.map(product => ({
       url: `${BASE_URL}/products/${product.id}`,
-      lastModified: product.updatedAt ?? product.createdAt ?? new Date(),
+      lastModified: product.updatedAt ?? product.createdAt ?? undefined,
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     }));

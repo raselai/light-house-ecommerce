@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: 'SK Light House',
     title: 'SK Light House — Premium Lighting Solutions in UAE',
     description: 'Premium lighting solutions for homes and businesses across UAE. Shop chandeliers, LED strips, spotlights, pendant lights and more.',
-    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'SK Light House — Premium Lighting Solutions' }],
+    images: [{ url: '/images/og-image.jpg', width: 800, height: 800, alt: 'SK Light House — Premium Lighting Solutions' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -111,8 +111,8 @@ export default function RootLayout({
                 <div className="footer-section">
                   <h3>Categories</h3>
                   <ul>
-                    <li><a href="/categories/indoor-lights">Indoor Lights</a></li>
-                    <li><a href="/categories/outdoor-lights">Outdoor Lights</a></li>
+                    <li><a href="/categories/chandeliers">Indoor Lights</a></li>
+                    <li><a href="/categories/garden-lights">Outdoor Lights</a></li>
                     <li><a href="/categories/led-strip">LED Strip</a></li>
                     <li><a href="/categories/spotlight">Spotlight</a></li>
                   </ul>
