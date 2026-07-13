@@ -1,77 +1,21 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
+import React from 'react';
 import ImageGallery from '@/components/ImageGallery';
-import { fetchProducts } from '@/lib/productService';
 import { useCart } from '@/context/CartContext';
 
 type ProductContentProps = {
-  slug: string;
+  product: any;
 };
 
-export default function ProductContent({ slug }: ProductContentProps) {
-  const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [product, setProduct] = useState<any>(null);
+export default function ProductContent({ product }: ProductContentProps) {
   const { addToCart } = useCart();
-
-  // Load products on component mount
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const fetchedProducts = await fetchProducts();
-        setProducts(fetchedProducts);
-        const foundProduct = fetchedProducts.find((p: any) => p.id.toString() === slug);
-        setProduct(foundProduct);
-      } catch (error) {
-        console.error('Error loading products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    loadProducts();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div style={{ padding: '2rem 0', textAlign: 'center' }}>
-        <p>Loading product...</p>
-      </div>
-    );
-  }
-
-  if (!product) {
-    notFound();
-  }
-
-  const displayPrice = product.isOnSale && product.offerPrice ? product.offerPrice : product.price;
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.name,
-    description: product.description,
-    image: product.images?.length ? product.images : product.image ? [product.image] : undefined,
-    sku: product.id,
-    category: product.category,
-    offers: {
-      '@type': 'Offer',
-      url: `https://www.sklighthouse.com/products/${product.id}`,
-      priceCurrency: 'AED',
-      price: displayPrice,
-      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      seller: { '@type': 'Organization', name: 'AL MESBAH ALABYAD LIGHTS TRADING L.L.C' },
-    },
-  };
 
   return (
     <div style={{ padding: '2rem 0' }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container">
-        <div style={{ 
-          display: 'grid', 
+        <div style={{
+          display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
           gap: '3rem',
           marginTop: '2rem'
@@ -89,25 +33,25 @@ export default function ProductContent({ slug }: ProductContentProps) {
             <div style={{ marginBottom: '2rem' }}>
               {product.isOnSale && product.offerPrice ? (
                 <>
-                  <p style={{ 
-                    fontSize: '2rem', 
-                    color: '#dc2626', 
+                  <p style={{
+                    fontSize: '2rem',
+                    color: '#dc2626',
                     marginBottom: '0.5rem',
                     fontWeight: 'bold'
                   }}>
                     AED {product.offerPrice.toFixed(2)}
                   </p>
-                  <p style={{ 
-                    fontSize: '1.2rem', 
-                    color: '#6b7280', 
+                  <p style={{
+                    fontSize: '1.2rem',
+                    color: '#6b7280',
                     marginBottom: '0.5rem',
                     textDecoration: 'line-through'
                   }}>
                     AED {product.price.toFixed(2)}
                   </p>
-                  <span style={{ 
-                    fontSize: '0.9rem', 
-                    color: '#dc2626', 
+                  <span style={{
+                    fontSize: '0.9rem',
+                    color: '#dc2626',
                     fontWeight: '600',
                     backgroundColor: '#fef2f2',
                     padding: '0.25rem 0.75rem',
@@ -118,9 +62,9 @@ export default function ProductContent({ slug }: ProductContentProps) {
                   </span>
                 </>
               ) : (
-                <p style={{ 
-                  fontSize: '2rem', 
-                  color: '#1f2937', 
+                <p style={{
+                  fontSize: '2rem',
+                  color: '#1f2937',
                   marginBottom: '2rem',
                   fontWeight: 'bold'
                 }}>
@@ -128,20 +72,20 @@ export default function ProductContent({ slug }: ProductContentProps) {
                 </p>
               )}
             </div>
-            
+
             <div style={{ marginBottom: '2rem' }}>
               <p style={{ color: '#6b7280', lineHeight: '1.6' }}>
                 {product.description}
               </p>
             </div>
-            
+
             {/* Product Specifications */}
             <div style={{ marginBottom: '2rem' }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
                 Product Specifications
               </h2>
-              <div style={{ 
-                display: 'grid', 
+              <div style={{
+                display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                 gap: '1rem'
               }}>
@@ -174,7 +118,7 @@ export default function ProductContent({ slug }: ProductContentProps) {
                 </div>
               </div>
             </div>
-            
+
             <button
               onClick={() => addToCart(product)}
               style={{
@@ -197,4 +141,4 @@ export default function ProductContent({ slug }: ProductContentProps) {
       </div>
     </div>
   );
-} 
+}
